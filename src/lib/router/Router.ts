@@ -2,7 +2,7 @@ import { View } from '../core'
 import { ClassType, WebApiInterface } from '../core/types'
 import * as CustomErrors from '../core/CustomErrors'
 import { ROUTE_EVENT_TYPE } from './constants'
-import { RouterStaticMethodOptions, RouteTable } from './types'
+import { CustomEvent, RouterStaticMethodOptions, RouteTable } from './types'
 
 export const navigate: (path: string, options?: RouterStaticMethodOptions) => void = (
   path,
@@ -48,6 +48,15 @@ class Router {
     this.webApiInterface = _webApiInterface
 
     this.rootId = rootId
+
+    this.webApiInterface.addEventListener('popstate', this.route.bind(this))
+    this.webApiInterface.addEventListener(ROUTE_EVENT_TYPE, (e) => {
+      const { path } = (e as CustomEvent<{ path: string }>).detail
+      if (path) {
+        this.webApiInterface.history.pushState(null, '', path)
+        this.route()
+      }
+    })
   }
 
   addRoute(path: string | RegExp, viewClass: ClassType<View>) {

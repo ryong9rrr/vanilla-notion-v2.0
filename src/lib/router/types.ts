@@ -9,3 +9,7 @@ export type RouteTable = {
   path: string | RegExp
   viewClass: ClassType<View>
 }[]
+
+export interface CustomEvent<T> extends Event {
+  detail: T
+}
