@@ -1,20 +1,20 @@
-const dotenv = require("dotenv")
-const Dotenv = require("dotenv-webpack")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const path = require("path")
+const dotenv = require('dotenv')
+const Dotenv = require('dotenv-webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = () => {
   dotenv.config()
 
   return {
-    mode: "development",
-    entry: "./src/index.ts",
+    mode: 'development',
+    entry: './src/index.ts',
     output: {
-      path: path.resolve(__dirname, "dist"),
-      publicPath: "/", // in local
-      filename: "bundle.js",
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: '/', // in local
+      filename: 'bundle.js',
     },
-    devtool: "inline-source-map",
+    devtool: 'inline-source-map',
     devServer: {
       compress: true, // 압축하겠다는 옵션.
       port: 9999,
@@ -25,24 +25,28 @@ module.exports = () => {
         {
           test: /\.ts$/,
           exclude: /node_modules/,
-          loader: "ts-loader",
+          loader: 'ts-loader',
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
       ],
     },
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".json"],
+      extensions: ['.ts', '.tsx', '.js', '.json'],
       alias: {
-        "@": path.resolve(__dirname, "src"),
+        '@': path.resolve(__dirname, 'src'),
       },
     },
     plugins: [
       //new Dotenv(),
       new HtmlWebpackPlugin({
-        template: "index.html",
+        template: 'index.html',
       }),
     ],
   }
