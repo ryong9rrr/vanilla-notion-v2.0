@@ -1,0 +1,62 @@
+@import '../styles/variables';
+
+nav {
+  max-width: 500px;
+  min-width: 160px;
+  flex-shrink: 0; // flex-shrink의 기본값은 1이다. flex 레이아웃 안에서 flex 레이아웃 크기가 줄면 이 부분도 자동적으로 크기가 줄어들게 되는데 0으로 해서 크기가 줄어들지 않도록함.
+  height: 100%;
+  background-color: $color-background;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .header {
+    padding: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    .user-profile {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      margin-right: 10px;
+      background-image: url('https://avatars.githubusercontent.com/u/64957267?v=4');
+      background-size: cover;
+    }
+  }
+  ul {
+    flex-grow: 1;
+    // 내용이 넘치는 경우 스크롤
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .actions {
+    border-top: 1px solid $color-border;
+    .action {
+      height: 45px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: $color-icon;
+      cursor: pointer;
+      &:hover {
+        background-color: $color-background--hover1;
+      }
+      .icons {
+        margin-right: 8px;
+        color: $color-icon;
+      }
+    }
+  }
+  .resize-handle {
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: col-resize;
+    transition: 0.4s;
+    &:hover {
+      background-color: $color-border;
+    }
+  }
+}

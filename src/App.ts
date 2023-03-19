@@ -8,13 +8,13 @@ export default class App extends View {
   template(): string {
     return `
       <div class="app__inner">
-        <nav id="SideBarComponent"></nav>
+        <div id="SideBarComponent"></div>
         <div class="app__page">
           <div class="page__header">
-            <header id="HeaderComponent"></header>
+            <div id="HeaderComponent"></div>
           </div>
           <div class="page__container">
-            <main id="MainPageView"></main>
+            <div id="MainPageView"></div>
           </div>
         </div>
       </div>
@@ -30,6 +30,7 @@ export default class App extends View {
     const router = createRouter('.page__container')
 
     router.addRoute('/', MainPage)
+    router.addRoute(/^\/workspaces\/[\w]+\/?$/, MainPage)
     router.setNotFoundView(NotFoundPage)
 
     router.route()
