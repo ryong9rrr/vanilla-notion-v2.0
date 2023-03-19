@@ -1,10 +1,37 @@
+import './App.scss'
+import { View } from './lib/core'
 import { createRouter } from './lib/router'
-import NotFoundPage from './pages/NotFoundPage'
+import { MainPage, NotFoundPage } from './pages'
+import { Header, SideBar } from './components'
 
-export default function App(rootId: string) {
-  const router = createRouter(rootId)
+export default class App extends View {
+  template(): string {
+    return `
+      <div class="app__inner">
+        <nav id="SideBarComponent"></nav>
+        <div class="app__page">
+          <div class="page__header">
+            <header id="HeaderComponent"></header>
+          </div>
+          <div class="page__container">
+            <main id="MainPageView"></main>
+          </div>
+        </div>
+      </div>
+    `
+  }
 
-  router.setNotFoundView(NotFoundPage)
+  setChildren(): void {
+    this.addComponent(SideBar, '#SideBarComponent', {})
+    this.addComponent(Header, '#HeaderComponent', {})
+  }
 
-  router.route()
+  run() {
+    const router = createRouter('.page__container')
+
+    router.addRoute('/', MainPage)
+    router.setNotFoundView(NotFoundPage)
+
+    router.route()
+  }
 }

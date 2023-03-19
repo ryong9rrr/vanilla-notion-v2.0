@@ -1,4 +1,6 @@
-import './index.css'
+import './styles/index.scss'
 import App from './App'
 
-App('#root')
+const app = new App('#root', {})
+
+app.run()
