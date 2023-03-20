@@ -16,21 +16,15 @@ const handleErrors = (statusCode: number) => {
   throw new RedirectError()
 }
 
-export default class Api {
-  private API_END_POINT: string
-
-  constructor(API_END_POINT: string) {
-    this.API_END_POINT = API_END_POINT
-  }
-
-  async request(url: string = '', options: RequestInit = {}) {
+export const createRequest =
+  (API_END_POINT: string, defaultOptions: RequestInit = {}) =>
+  async (url: string, options: RequestInit = {}) => {
     try {
-      const response = await fetch(`${this.API_END_POINT}${url}`, {
+      const response = await fetch(`${API_END_POINT}${url}`, {
+        ...defaultOptions,
         ...options,
-        headers: {
-          'Content-Type': 'application/json',
-        },
       })
+
       if (response.ok) {
         return response.json()
       }
@@ -40,4 +34,3 @@ export default class Api {
       throw error
     }
   }
-}
