@@ -4,9 +4,7 @@
   "description": "",
   "scripts": {
     "test": "jest --watch",
-    "build": "webpack",
-    "dev": "webpack-dev-server --env DEV=true",
-    "prod": "webpack --config webpack.config.prod.js"
+    "dev": "webpack-dev-server --env DEV=true"
   },
   "repository": {
     "type": "git",
