@@ -1,6 +1,6 @@
 import './App.scss'
-import { View } from './lib/core'
-import { createRouter } from './lib/router'
+import { View } from './modules/core'
+import { createRouter } from './modules/router'
 import { MainPage, NotFoundPage } from './pages'
 import { Header, SideBar } from './components'
 

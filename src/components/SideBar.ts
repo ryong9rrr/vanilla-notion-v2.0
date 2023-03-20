@@ -1,5 +1,5 @@
 import './SideBar.scss'
-import { Component } from '@/lib/core'
+import { Component } from '@/modules/core'
 
 export default class SideBar extends Component {
   template(): string {

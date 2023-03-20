@@ -1,5 +1,5 @@
 import './Header.scss'
-import { Component } from '@/lib/core'
+import { Component } from '@/modules/core'
 
 export default class Header extends Component {
   template(): string {
