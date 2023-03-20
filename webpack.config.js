@@ -1,9 +1,10 @@
 const dotenv = require('dotenv')
-const Dotenv = require('dotenv-webpack')
+const Dotenv = require('dotenv-webpack') // process.env.어쩌구 할 때 process에 접근할 수 있게 해줌(이게 없으면 접근못해서 에러남)
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const webpack = require('webpack')
 
-module.exports = () => {
+module.exports = (env) => {
   dotenv.config()
 
   return {
@@ -51,7 +52,10 @@ module.exports = () => {
       },
     },
     plugins: [
-      //new Dotenv(),
+      new Dotenv(),
+      new webpack.DefinePlugin({
+        API_END_POINT: env.DEV ? JSON.stringify(process.env.API_END_POINT) : '',
+      }), // 노드 런타임에 가져온 env를 클라이언트에서 사용할 수 있도록 정의
       new HtmlWebpackPlugin({
         template: 'index.html',
       }),
