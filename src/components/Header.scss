@@ -1,0 +1,39 @@
+header {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  .titles {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    .division {
+      margin: 0 2px;
+      color: rgba($color-font, 0.4);
+    }
+    .title {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  .actions {
+    flex-shrink: 0;
+    display: flex;
+  }
+}
+button {
+  color: $color-font;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-background;
+  }
+}
