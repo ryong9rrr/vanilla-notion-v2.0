@@ -16,7 +16,7 @@ const handleErrors = (statusCode: number) => {
   throw new RedirectError()
 }
 
-export const createRequest =
+export const requestBuilder =
   (API_END_POINT: string, defaultOptions: RequestInit = {}) =>
   async (url: string, options: RequestInit = {}) => {
     try {
