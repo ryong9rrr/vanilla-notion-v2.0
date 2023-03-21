@@ -14,12 +14,12 @@ export default class MainPage extends View<{ occurError: boolean }> {
   template(): string {
     const { currentDocument } = documentStore.getState()
 
-    if (!currentDocument) {
-      return ``
-    }
-
     if (this.state.occurError) {
       return `<h1 class="occur-error">삭제되었거나 존재하지 않는 페이지입니다.</h1>`
+    }
+
+    if (!currentDocument) {
+      return ``
     }
 
     return `
