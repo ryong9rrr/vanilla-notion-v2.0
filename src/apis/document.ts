@@ -11,6 +11,10 @@ const request = requestBuilder(API_END_POINT, {
   },
 })
 
-export const readAllDocument = (): Promise<IDocument[]> => {
+export const getAllDocument = (): Promise<IDocument[]> => {
   return request('/documents')
+}
+
+export const getDocument = (documentId: number): Promise<IDocument> => {
+  return request(`/documents/${documentId}`)
 }

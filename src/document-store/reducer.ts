@@ -13,6 +13,8 @@ export default function reducer(
   switch (action.type) {
     case ActionTypes.GET_ALL_DOCUMENT:
       return { ...state, documents: action.payload }
+    case ActionTypes.GET_DOCUMENT:
+      return { ...state, currentDocument: action.payload }
     default:
       return { ...state }
   }
