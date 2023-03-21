@@ -3,6 +3,7 @@ import { View } from './modules/core'
 import { createRouter } from './modules/router'
 import { MainPage, NotFoundPage } from './pages'
 import { Header, SideBar } from './components'
+import { documentStore } from './document-store'
 
 export default class App extends View {
   template(): string {
