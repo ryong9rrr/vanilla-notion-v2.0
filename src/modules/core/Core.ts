@@ -4,7 +4,7 @@ import {
   modifyPropsOfChildren,
   rerenderChildren,
 } from './notifies'
-import { ClassType, WebApiInterface } from './types'
+import { ClassType, Provider, WebApiInterface } from './types'
 import { isDiff } from './utils'
 
 abstract class Core<
@@ -30,6 +30,7 @@ abstract class Core<
     this._prevState = this._state = this.initState()
     this._prevProps = this._props = props
 
+    this.componentWillMount()
     this.mount()
     this.componentDidMount()
   }
@@ -49,6 +50,8 @@ abstract class Core<
   get props() {
     return { ...this._props }
   }
+
+  componentWillMount() {}
 
   componentDidMount() {}
 
@@ -103,8 +106,6 @@ abstract class Core<
 
     // 하위 컴포넌트에게 알린다.
     this.notify()
-
-    this.componentDidUpdate()
   }
 
   get $container() {
@@ -117,12 +118,14 @@ abstract class Core<
     return $el
   }
 
+  setProvider(provider: Provider) {}
+
   private mount() {
     this._render()
     this.setChildren()
   }
 
-  private notify() {
+  protected notify() {
     this._render()
 
     // 1. 바뀐 상태를 사용하고 있는 하위 컴포넌트들의 props를 업데이트한다.
@@ -133,6 +136,8 @@ abstract class Core<
 
     // 3. 하위 컴포넌트들의 componentDidUpdate()를 호출한다.
     callComponentDidUpdateOfChildren(this)
+
+    this.componentDidUpdate()
   }
 
   _render() {
@@ -147,6 +152,14 @@ abstract class Core<
 export abstract class Component<
   Props extends Record<string, unknown> = {},
   State extends Record<string, unknown> = {},
-> extends Core<Props, State> {}
+> extends Core<Props, State> {
+  setProvider(provider: Provider): void {
+    provider.subscribe(this.notify.bind(this))
+  }
+}
 
-export abstract class View<State extends Record<string, unknown> = {}> extends Core<{}, State> {}
+export abstract class View<State extends Record<string, unknown> = {}> extends Core<{}, State> {
+  setProvider(provider: Provider): void {
+    provider.subscribe(this.notify.bind(this))
+  }
+}
