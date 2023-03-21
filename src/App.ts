@@ -30,7 +30,7 @@ export default class App extends View {
     const router = createRouter('.page__container')
 
     router.addRoute('/', MainPage)
-    router.addRoute(/^\/workspaces\/[\w]+\/?$/, MainPage)
+    router.addRoute(/^\/document\/[\w]+\/?$/, MainPage)
     router.setNotFoundView(NotFoundPage)
 
     router.route()
