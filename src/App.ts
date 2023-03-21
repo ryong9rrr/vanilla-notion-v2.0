@@ -1,9 +1,8 @@
 import './App.scss'
 import { View } from './modules/core'
 import { createRouter } from './modules/router'
-import { MainPage, NotFoundPage } from './pages'
+import { HomePage, MainPage, NotFoundPage } from './pages'
 import { Header, SideBar } from './components'
-import { documentStore } from './document-store'
 
 export default class App extends View {
   template(): string {
@@ -30,7 +29,7 @@ export default class App extends View {
   run() {
     const router = createRouter('.page__container')
 
-    router.addRoute('/', MainPage)
+    router.addRoute('/', HomePage)
     router.addRoute(/^\/document\/[\w]+\/?$/, MainPage)
     router.setNotFoundView(NotFoundPage)
 
