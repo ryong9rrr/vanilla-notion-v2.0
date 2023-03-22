@@ -15,23 +15,26 @@ const isShow = (documentId: number, openDocumentsIds: Set<number>) => {
   return openDocumentsIds.has(documentId)
 }
 
-export default function SideBarTreeItem(
-  document: IDocument,
-  openDocumentsIds: Set<number>,
-  depth: number = 1,
-): string {
+interface Props {
+  document: IDocument
+  openDocumentsIds: Set<number>
+}
+
+export default function SideBarTreeItem(props: Props, depth: number = 1): string {
+  const { document, openDocumentsIds } = props
+
   return `
-    <li>
+    <li data-id="${document.id}">
       <div class="title ${isActive(document.id) ? 'active' : ''}" style="padding-left: ${
     14 * depth
   }px;">
-        <span class="material-icons ${
+        <span class="material-icons toggle-btn ${
           isShow(document.id, openDocumentsIds) ? 'active' : ''
         }">play_arrow</span>
         <span class="text">${document.title || '제목 없음'}</span>
         <div class="actions">
-          <span class="material-icons">add</span>
-          <span class="material-icons">delete</span>
+          <span class="material-icons add-btn">add</span>
+          <span class="material-icons delete-btn">delete</span>
         </div>
       </div>
       ${
@@ -48,7 +51,7 @@ export default function SideBarTreeItem(
           ? `
         <ul>
           ${document.documents
-            .map((doc) => SideBarTreeItem(doc, openDocumentsIds, depth + 1))
+            .map((doc) => SideBarTreeItem({ document: doc, openDocumentsIds }, depth + 1))
             .join('')}
         </ul>
       `

@@ -19,15 +19,14 @@ export default function reducer(
       return { ...state, currentDocument: action.payload }
     }
 
-    case ActionTypes.OPEN_DOCUMENT: {
+    case ActionTypes.TOGGLE_DOCUMENT: {
       const { openDocumentsIds } = state
-      openDocumentsIds.add(action.payload)
-      return { ...state, openDocumentsIds }
-    }
-
-    case ActionTypes.CLOSE_DOCUMENT: {
-      const { openDocumentsIds } = state
-      openDocumentsIds.delete(action.payload)
+      const documentId = action.payload
+      if (openDocumentsIds.has(documentId)) {
+        openDocumentsIds.delete(action.payload)
+      } else {
+        openDocumentsIds.add(action.payload)
+      }
       return { ...state, openDocumentsIds }
     }
 

@@ -1,16 +1,17 @@
 import { Action, HandlerFn, Reducer } from './types'
 
 export function createStore<T>(reducer: Reducer<T>) {
-  let state: ReturnType<typeof reducer> = reducer()
+  let state = reducer()
   let handlers: HandlerFn[] = []
 
   const dispatch = (action: Action) => {
+    // isDiff는 일단 제외
     state = reducer(state, action)
     handlers.forEach((handler) => handler())
   }
 
   const getState = () => {
-    return state
+    return Object.freeze(state)
   }
 
   const subscribe = (handler: HandlerFn) => {
