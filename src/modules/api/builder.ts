@@ -4,7 +4,7 @@ class ClientError extends Error {}
 
 class ServerError extends Error {}
 
-const handleErrors = (statusCode: number) => {
+const occurErrors = (statusCode: number) => {
   if (statusCode >= 500) {
     throw new ServerError()
   }
@@ -28,7 +28,7 @@ export const requestBuilder =
       if (response.ok) {
         return response.json()
       }
-      handleErrors(response.status)
+      return occurErrors(response.status)
     } catch (error) {
       console.warn(error)
       throw error

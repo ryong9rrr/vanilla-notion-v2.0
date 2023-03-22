@@ -1,0 +1,55 @@
+li {
+  .title {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 14px;
+    color: rgba($color-font, 0.7);
+    cursor: pointer;
+    &:hover {
+      background-color: $color-background--hover1;
+      padding-right: 4px;
+      .actions {
+        display: flex;
+      }
+    }
+    &.active {
+      .text {
+        font-weight: 700;
+        color: rgba($color-font, 0.8);
+      }
+    }
+    .material-icons {
+      font-size: 18px;
+      color: $color-icon;
+      margin-right: 4px;
+      &:hover {
+        background-color: $color-background--hover2;
+      }
+      &.active {
+        transform: rotate(90deg);
+      }
+    }
+    .text {
+      flex-grow: 1;
+      // 텍스트 말줄임 스타일링
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .actions {
+      display: none;
+      align-items: center;
+    }
+  }
+  .no-children {
+    color: rgba($color-font, 0.35);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    // 텍스트 말줄임 스타일링
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

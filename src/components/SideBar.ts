@@ -1,8 +1,9 @@
 import './SideBar.scss'
 import { Component } from '@/modules/core'
+import SideBarTreeItem from './SideBarTreeItem'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
-//import { getAllDocument } from '@/apis/document'
+import { getAllDocument } from '@/apis/document'
 import { mock_getAllDocument } from '@/mocks/handlers'
 
 export default class SideBar extends Component {
@@ -12,18 +13,18 @@ export default class SideBar extends Component {
     console.log(documents, currentDocument)
 
     return `
-      <nav style="{ width: 240px }">
+      <nav>
         <div class="header">
           <div class="user-profile"></div>
           Yong's Notion
         </div>
         <ul>
-          <div>워크스페이스 아이템</div>
+          ${documents.map((document) => SideBarTreeItem(document)).join('')}
         </ul>
         <div class="actions">
           <div class="action">
-            <span class="icons">
-              +
+            <span class="material-icons">
+              add
             </span>새로운 페이지
           </div>
         </div>

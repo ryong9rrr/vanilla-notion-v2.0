@@ -1,3 +1,7 @@
+#SideBarComponent {
+  width: 240px;
+}
+
 nav {
   max-width: 500px;
   min-width: 160px;
@@ -39,7 +43,7 @@ nav {
       &:hover {
         background-color: $color-background--hover1;
       }
-      .icons {
+      .material-icons {
         margin-right: 8px;
         color: $color-icon;
       }
