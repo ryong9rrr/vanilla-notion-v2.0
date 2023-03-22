@@ -11,13 +11,23 @@ const hasChildren = (document: IDocument) => {
   return document.documents && document.documents.length > 0
 }
 
-export default function SideBarTreeItem(document: IDocument, depth: number = 1): string {
+const isShow = (documentId: number, openDocumentsIds: Set<number>) => {
+  return openDocumentsIds.has(documentId)
+}
+
+export default function SideBarTreeItem(
+  document: IDocument,
+  openDocumentsIds: Set<number>,
+  depth: number = 1,
+): string {
   return `
     <li>
-      <div class="${isActive(document.id) ? 'title active' : 'title'}" style="padding-left: ${
+      <div class="title ${isActive(document.id) ? 'active' : ''}" style="padding-left: ${
     14 * depth
   }px;">
-        <span class="material-icons">play_arrow</span>
+        <span class="material-icons ${
+          isShow(document.id, openDocumentsIds) ? 'active' : ''
+        }">play_arrow</span>
         <span class="text">${document.title || '제목 없음'}</span>
         <div class="actions">
           <span class="material-icons">add</span>
@@ -25,7 +35,7 @@ export default function SideBarTreeItem(document: IDocument, depth: number = 1):
         </div>
       </div>
       ${
-        !hasChildren(document)
+        !hasChildren(document) && isShow(document.id, openDocumentsIds)
           ? `
         <div class="no-children" style="padding-left: ${
           14 * depth + 22
@@ -33,9 +43,17 @@ export default function SideBarTreeItem(document: IDocument, depth: number = 1):
       `
           : ''
       }
-      <ul>
-        ${document.documents.map((doc) => SideBarTreeItem(doc, depth + 1)).join('')}
-      </ul>
+      ${
+        hasChildren(document) && isShow(document.id, openDocumentsIds)
+          ? `
+        <ul>
+          ${document.documents
+            .map((doc) => SideBarTreeItem(doc, openDocumentsIds, depth + 1))
+            .join('')}
+        </ul>
+      `
+          : ''
+      }
     </li>
   `
 }

@@ -11,10 +11,26 @@ export default function reducer(
   }
 
   switch (action.type) {
-    case ActionTypes.GET_ALL_DOCUMENT:
+    case ActionTypes.GET_ALL_DOCUMENT: {
       return { ...state, documents: action.payload }
-    case ActionTypes.GET_DOCUMENT:
+    }
+
+    case ActionTypes.GET_DOCUMENT: {
       return { ...state, currentDocument: action.payload }
+    }
+
+    case ActionTypes.OPEN_DOCUMENT: {
+      const { openDocumentsIds } = state
+      openDocumentsIds.add(action.payload)
+      return { ...state, openDocumentsIds }
+    }
+
+    case ActionTypes.CLOSE_DOCUMENT: {
+      const { openDocumentsIds } = state
+      openDocumentsIds.delete(action.payload)
+      return { ...state, openDocumentsIds }
+    }
+
     default:
       return { ...state }
   }

@@ -8,7 +8,7 @@ import { mock_getAllDocument } from '@/mocks/handlers'
 
 export default class SideBar extends Component {
   template(): string {
-    const { documents, currentDocument } = documentStore.getState()
+    const { documents, currentDocument, openDocumentsIds } = documentStore.getState()
 
     console.log(documents, currentDocument)
 
@@ -19,7 +19,7 @@ export default class SideBar extends Component {
           Yong's Notion
         </div>
         <ul>
-          ${documents.map((document) => SideBarTreeItem(document)).join('')}
+          ${documents.map((document) => SideBarTreeItem(document, openDocumentsIds)).join('')}
         </ul>
         <div class="actions">
           <div class="action">
