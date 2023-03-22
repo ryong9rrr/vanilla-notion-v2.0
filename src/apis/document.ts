@@ -15,6 +15,6 @@ export const getAllDocument = (): Promise<IDocument[]> => {
   return request('/documents')
 }
 
-export const getDocument = (documentId: number): Promise<IDocument> => {
+export const getDocument = (documentId: number): Promise<Required<IDocument>> => {
   return request(`/documents/${documentId}`)
 }
