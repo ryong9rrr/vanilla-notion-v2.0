@@ -39,6 +39,7 @@ class Router {
     return this.instance
   }
 
+  private currentView: View | null = null
   private rootId: string
   private webApiInterface: WebApiInterface
   private routeTable: RouteTable = []
@@ -57,6 +58,10 @@ class Router {
         this.route()
       }
     })
+  }
+
+  private setCurrentView(view: View | null) {
+    this.currentView = view
   }
 
   addRoute(path: string | RegExp, viewClass: ClassType<View>) {
@@ -78,22 +83,34 @@ class Router {
   }
 
   route() {
+    this.removePrevViewProvider()
+
     const { pathname } = this.webApiInterface.location
 
     for (const { path, viewClass } of this.routeTable) {
       const isMatched = typeof path === 'string' ? path === pathname : path.test(pathname)
       if (isMatched) {
-        new viewClass(this.rootId)
+        this.setCurrentView(new viewClass(this.rootId))
         return
       }
     }
 
     if (this.notFoundViewClass) {
-      new this.notFoundViewClass(this.rootId)
+      this.setCurrentView(new this.notFoundViewClass(this.rootId))
       return
     }
 
+    this.setCurrentView(null)
     this.webApiInterface.document.querySelector(this.rootId)!.innerHTML = ``
+  }
+
+  private removePrevViewProvider() {
+    const prevView = this.currentView
+    if (!prevView) {
+      return
+    }
+
+    prevView._removeProvider()
   }
 }
 

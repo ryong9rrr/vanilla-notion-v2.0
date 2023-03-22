@@ -56,8 +56,8 @@ export default class SideBar extends Component {
   }
 
   handleClickUserHeader() {
-    documentStore.dispatch(Actions.navigateHome())
     navigate('/')
+    documentStore.dispatch(Actions.navigateHome())
   }
 
   handleClickList(documentId: number) {

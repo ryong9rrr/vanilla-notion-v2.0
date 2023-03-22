@@ -4,14 +4,19 @@ import {
   modifyPropsOfChildren,
   rerenderChildren,
 } from './notifies'
-import { ClassType, Provider, WebApiInterface } from './types'
+import { ClassType, WebApiInterface } from './types'
 import { isDiff } from './utils'
+
+import { ProviderImpl } from '../interfaces/impls'
 
 abstract class Core<
   Props extends Record<string, unknown> = {},
   State extends Record<string, unknown> = {},
 > {
   private webApiInterface: WebApiInterface
+
+  private provider: ProviderImpl | null = null
+  private providerHandler: (() => void) | null = null
 
   private containerId: string
 
@@ -118,8 +123,6 @@ abstract class Core<
     return $el
   }
 
-  setProvider(provider: Provider) {}
-
   private mount() {
     this._render()
     this.setChildren()
@@ -146,20 +149,33 @@ abstract class Core<
     this.setEvent()
   }
 
+  setProvider(provider: ProviderImpl) {
+    this.provider = provider
+    this.providerHandler = () => this.notify()
+    this.provider.subscribe(this.providerHandler)
+  }
+
+  _removeProvider() {
+    if (!this.provider || !this.providerHandler) {
+      return
+    }
+
+    this.provider.unsubscribe(this.providerHandler)
+
+    for (const subComponent of this._children) {
+      subComponent._removeProvider()
+    }
+
+    this.provider = null
+    this.providerHandler = null
+  }
+
   abstract template(): string
 }
 
 export abstract class Component<
   Props extends Record<string, unknown> = {},
   State extends Record<string, unknown> = {},
-> extends Core<Props, State> {
-  setProvider(provider: Provider): void {
-    provider.subscribe(this.notify.bind(this))
-  }
-}
+> extends Core<Props, State> {}
 
-export abstract class View<State extends Record<string, unknown> = {}> extends Core<{}, State> {
-  setProvider(provider: Provider): void {
-    provider.subscribe(this.notify.bind(this))
-  }
-}
+export abstract class View<State extends Record<string, unknown> = {}> extends Core<{}, State> {}

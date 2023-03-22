@@ -2,7 +2,7 @@ import { Action, HandlerFn, Reducer } from './types'
 
 export function createStore<T>(reducer: Reducer<T>) {
   let state = reducer()
-  let handlers: HandlerFn[] = []
+  let handlers: Set<HandlerFn> = new Set()
 
   const dispatch = (action: Action) => {
     // isDiff는 일단 제외
@@ -15,11 +15,11 @@ export function createStore<T>(reducer: Reducer<T>) {
   }
 
   const subscribe = (handler: HandlerFn) => {
-    handlers.push(handler)
+    handlers.add(handler)
   }
 
-  const unsubscribe = () => {
-    handlers = [] as HandlerFn[]
+  const unsubscribe = (handler: HandlerFn) => {
+    handlers.delete(handler)
   }
 
   const store = {
