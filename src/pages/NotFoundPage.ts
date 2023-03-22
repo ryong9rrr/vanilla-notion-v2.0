@@ -1,5 +1,5 @@
 import './NotFoundPage.scss'
-import { View } from '@/modules/core'
+import { View } from '@/@modules/core'
 
 export default class NotFoundPage extends View {
   template(): string {

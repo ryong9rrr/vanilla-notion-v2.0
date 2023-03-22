@@ -1,4 +1,4 @@
-import { actionCreator } from '@/modules/flux'
+import { actionCreator } from '@/@modules/flux'
 import { IDocument } from '@/types'
 import * as ActionTypes from './action-types'
 

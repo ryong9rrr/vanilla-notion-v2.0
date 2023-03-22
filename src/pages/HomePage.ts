@@ -1,5 +1,5 @@
 import './HomePage.scss'
-import { View } from '@/modules/core'
+import { View } from '@/@modules/core'
 
 export default class HomePage extends View {
   initState() {

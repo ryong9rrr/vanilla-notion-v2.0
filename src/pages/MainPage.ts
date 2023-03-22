@@ -1,5 +1,5 @@
 import './MainPage.scss'
-import { View } from '@/modules/core'
+import { View } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
