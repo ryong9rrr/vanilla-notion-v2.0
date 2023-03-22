@@ -1,6 +1,7 @@
 import { DocumentState, initialState } from './state'
 import { Action } from './actions'
 import * as ActionTypes from './action-types'
+import { findPath } from './helpers'
 
 export default function reducer(
   state: DocumentState = initialState,
@@ -16,7 +17,9 @@ export default function reducer(
     }
 
     case ActionTypes.GET_DOCUMENT: {
-      return { ...state, currentDocument: action.payload }
+      const currentDocument = action.payload
+      const documentPaths = findPath(state.documents, currentDocument.id)
+      return { ...state, currentDocument, documentPaths }
     }
 
     case ActionTypes.TOGGLE_DOCUMENT: {
@@ -31,7 +34,7 @@ export default function reducer(
     }
 
     case ActionTypes.NAVIGATE_HOME: {
-      return { ...state, currentDocument: null }
+      return { ...state, currentDocument: null, documentPaths: [] }
     }
 
     default:
