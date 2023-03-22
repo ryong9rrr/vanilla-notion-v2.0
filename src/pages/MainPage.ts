@@ -2,8 +2,7 @@ import './MainPage.scss'
 import { View } from '@/modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
-// import { getDocument } from '@/apis/document'
-import { mock_getDocument } from '@/mocks/handlers'
+import { getDocument } from '@/apis/document'
 
 export default class MainPage extends View<{ occurError: boolean }> {
   initState() {
@@ -45,8 +44,7 @@ export default class MainPage extends View<{ occurError: boolean }> {
     const { pathname } = window.location
     const documentId = parseInt(pathname.replace('/document/', ''), 10)
     try {
-      const document = await mock_getDocument()
-      // const document = await getDocument(documentId)
+      const document = await getDocument(documentId)
       documentStore.dispatch(Actions.getDocument(document))
     } catch (error) {
       this.setState({ occurError: true })

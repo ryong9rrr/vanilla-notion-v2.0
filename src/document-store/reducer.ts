@@ -30,6 +30,10 @@ export default function reducer(
       return { ...state, openDocumentsIds }
     }
 
+    case ActionTypes.NAVIGATE_HOME: {
+      return { ...state, currentDocument: null }
+    }
+
     default:
       return { ...state }
   }

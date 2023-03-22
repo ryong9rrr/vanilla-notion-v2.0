@@ -4,7 +4,6 @@ import SideBarTreeItem from './SideBarTreeItem'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getAllDocument } from '@/apis/document'
-import { mock_getAllDocument } from '@/mocks/handlers'
 import { navigate } from '@/modules/router'
 
 const queryDocumentId = (e: Event) => {
@@ -27,8 +26,10 @@ export default class SideBar extends Component {
     return `
       <nav>
         <div class="header">
-          <div class="user-profile"></div>
-          Yong's Notion
+          <div class="user-header">
+            <div class="user-profile"></div>
+            Yong's Notion
+          </div>
         </div>
         <ul>
           ${documents.map((document) => SideBarTreeItem({ document, openDocumentsIds })).join('')}
@@ -50,9 +51,13 @@ export default class SideBar extends Component {
   }
 
   async componentDidMount() {
-    const documents = await mock_getAllDocument()
-    //const documents = await getAllDocument()
+    const documents = await getAllDocument()
     documentStore.dispatch(Actions.getAllDocument(documents))
+  }
+
+  handleClickUserHeader() {
+    documentStore.dispatch(Actions.navigateHome())
+    navigate('/')
   }
 
   handleClickList(documentId: number) {
@@ -72,6 +77,10 @@ export default class SideBar extends Component {
   }
 
   setEvent() {
+    this.addEvent('click', '.user-header', (e) => {
+      this.handleClickUserHeader()
+    })
+
     this.addEvent('click', '.text', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
