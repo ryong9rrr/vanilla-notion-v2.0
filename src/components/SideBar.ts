@@ -14,8 +14,7 @@ const queryDocumentId = (e: Event) => {
   if (!$li) {
     return null
   }
-  const documentId = ($li as HTMLElement).dataset.id
-
+  const documentId = $li.dataset.id
   return documentId ? parseInt(documentId, 10) : null
 }
 
