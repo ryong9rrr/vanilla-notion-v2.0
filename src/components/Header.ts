@@ -5,6 +5,7 @@ import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
 import { getDocumentIdForCurrentView, isDocumentPathForCurrentView } from '@/utils'
+import { ROUTE_PATH } from '@/constants'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -60,7 +61,7 @@ export default class Header extends Component<{}, { occurError: boolean }> {
   }
 
   navigateDocument(documentId: number) {
-    navigate(`/document/${documentId}`)
+    navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
   }
 
   async fetchPaths() {

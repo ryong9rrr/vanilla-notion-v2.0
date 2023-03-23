@@ -1,13 +1,14 @@
 import App, { MAIN_PAGE_ROOT_CLASS_SELECTOR } from './App'
 import { createRouter } from './@modules/router'
 import { HomePage, MainPage, NotFoundPage } from './pages'
-
-new App('#root', {})
+import { ROUTE_PATH } from './constants'
 
 const router = createRouter(`.${MAIN_PAGE_ROOT_CLASS_SELECTOR}`)
 
-router.addRoute('/', HomePage)
-router.addRoute('/document/:documentId', MainPage)
+router.addRoute(ROUTE_PATH.HOME, HomePage)
+router.addRoute(`${ROUTE_PATH.DOCUMENT_PAGE}/:documentId`, MainPage)
 router.setNotFoundView(NotFoundPage)
+
+new App('#root', {})
 
 router.route()

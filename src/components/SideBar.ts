@@ -6,6 +6,7 @@ import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
 import { getDocumentIdForCurrentView } from '@/utils'
 import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/utils/feedbackMessages'
+import { ROUTE_PATH } from '@/constants'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
 
@@ -88,12 +89,12 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
   }
 
   handleClickUserHeader() {
-    navigate('/')
+    navigate(ROUTE_PATH.HOME)
     documentStore.dispatch(Actions.navigateHome())
   }
 
   handleClickList(documentId: number) {
-    navigate(`/document/${documentId}`)
+    navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
   }
 
   handleClickToggleIcon(documentId: number) {
@@ -128,7 +129,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     try {
       const newDocument = await DocumentApis.createDocument(null, title)
       await this.fetchAllDocument()
-      navigate(`/document/${newDocument.id}`)
+      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
     }
