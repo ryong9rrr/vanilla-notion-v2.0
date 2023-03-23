@@ -6,23 +6,11 @@ import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
-
-const isMatch = (pathname: string) => {
-  const regexp = new RegExp(/^\/document\/[\w]+\/?$/, 'g')
-  return regexp.test(pathname)
-}
+import { getDocumentIdForCurrentView } from '@/utils'
 
 const isNeedRedirect = (removedDocumentId: number) => {
-  const { pathname } = window.location
-  if (!isMatch(pathname)) {
-    return
-  }
-  const currentDocumentId = parseInt(pathname.replace('/document/', ''), 10)
-  if (Number.isNaN(currentDocumentId)) {
-    return
-  }
-
-  return currentDocumentId === removedDocumentId
+  const currentDocumentId = getDocumentIdForCurrentView()
+  return currentDocumentId && currentDocumentId === removedDocumentId
 }
 
 const queryDocumentId = (e: Event) => {

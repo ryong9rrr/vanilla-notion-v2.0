@@ -4,11 +4,7 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
-
-const isMatch = (pathname: string) => {
-  const regexp = new RegExp(/^\/document\/[\w]+\/?$/, 'g')
-  return regexp.test(pathname)
-}
+import { getDocumentIdForCurrentView, isDocumentPathForCurrentView } from '@/utils'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -35,9 +31,7 @@ export default class Header extends Component<{}, { occurError: boolean }> {
 
   template(): string {
     const { documentPaths } = documentStore.getState()
-    const { pathname } = window.location
-
-    if (!isMatch(pathname) || this.state.occurError || documentPaths.length === 0) {
+    if (!isDocumentPathForCurrentView() || this.state.occurError || documentPaths.length === 0) {
       return ``
     }
 
@@ -70,16 +64,12 @@ export default class Header extends Component<{}, { occurError: boolean }> {
   }
 
   async fetchPaths() {
-    const { pathname } = window.location
-    if (!isMatch(pathname)) {
-      return
-    }
-    const documentId = parseInt(pathname.replace('/document/', ''), 10)
-    if (Number.isNaN(documentId)) {
+    const currentDocumentId = getDocumentIdForCurrentView()
+    if (!currentDocumentId) {
       return
     }
     try {
-      const document = await getDocument(documentId)
+      const document = await getDocument(currentDocumentId)
       documentStore.dispatch(Actions.getDocument(document))
     } catch (error) {
       this.setState({ occurError: true })

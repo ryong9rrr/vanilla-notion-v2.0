@@ -3,6 +3,7 @@ import { View } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
+import { getDocumentIdForCurrentView } from '@/utils'
 
 export default class MainPage extends View<{ occurError: boolean }> {
   initState() {
@@ -41,10 +42,12 @@ export default class MainPage extends View<{ occurError: boolean }> {
   }
 
   async componentDidMount() {
-    const { pathname } = window.location
-    const documentId = parseInt(pathname.replace('/document/', ''), 10)
+    const currentDocumentId = getDocumentIdForCurrentView()
+    if (!currentDocumentId) {
+      return
+    }
     try {
-      const document = await getDocument(documentId)
+      const document = await getDocument(currentDocumentId)
       documentStore.dispatch(Actions.getDocument(document))
     } catch (error) {
       this.setState({ occurError: true })

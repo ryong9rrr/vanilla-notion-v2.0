@@ -1,10 +1,10 @@
 import './SideBarTreeItem.scss'
 import { IDocument } from '@/types'
+import { getDocumentIdForCurrentView } from '@/utils'
 
 const isActive = (documentId: number) => {
-  const { pathname } = window.location
-  const id = pathname.replace('/document/', '')
-  return parseInt(id, 10) === documentId
+  const currentDocumentId = getDocumentIdForCurrentView()
+  return currentDocumentId && currentDocumentId === documentId
 }
 
 const hasChildren = (document: IDocument) => {
