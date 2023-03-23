@@ -93,8 +93,17 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     navigate(`/document/${documentId}`)
   }
 
-  handleClickAddIcon(documentId: number) {
-    console.log(documentId)
+  handleClickToggleIcon(documentId: number) {
+    documentStore.dispatch(Actions.toggleDocument(documentId))
+  }
+
+  async handleClickAddIcon(documentId: number) {
+    try {
+      await DocumentApis.createDocument(documentId, '')
+      await this.fetchAllDocument()
+    } catch (error) {
+      window.alert('서버가 불안정하여 문서를 생성하는데 실패했어요 😭')
+    }
   }
 
   async handleClickDeleteIcon(documentId: number) {
@@ -111,10 +120,6 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     } catch (error) {
       window.alert('서버가 불안정하여 문서를 삭제하는데 실패했어요 😭')
     }
-  }
-
-  handleClickToggleIcon(documentId: number) {
-    documentStore.dispatch(Actions.toggleDocument(documentId))
   }
 
   async handleCreateNewDocumentForRoot(title: string) {
