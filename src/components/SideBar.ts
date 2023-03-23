@@ -26,6 +26,8 @@ const queryDocumentId = (e: Event) => {
   return documentId ? parseInt(documentId, 10) : null
 }
 
+const MODAL_COMPONENT_ID_SELECTOR = 'ModalComponent'
+
 export default class SideBar extends Component<{}, { isVisibleModal: boolean }> {
   componentWillMount() {
     this.setProvider(documentStore)
@@ -59,7 +61,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
           </div>
         </div>
         <div class="resize-handle"></div>
-        <div id="ModalComponent"></div>
+        <div id="${MODAL_COMPONENT_ID_SELECTOR}"></div>
       </nav>
     `
   }
@@ -133,7 +135,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
   }
 
   setChildren(): void {
-    this.addComponent(Modal, '#ModalComponent', {
+    this.addComponent(Modal, `#${MODAL_COMPONENT_ID_SELECTOR}`, {
       isVisibleModal: this.state.isVisibleModal,
       onCloseModal: this.closeModal.bind(this),
       onCreateNewDocument: this.handleCreateNewDocumentForRoot.bind(this),
