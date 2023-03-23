@@ -18,3 +18,13 @@ export const getAllDocument = (): Promise<IDocument[]> => {
 export const getDocument = (documentId: number): Promise<Required<IDocument>> => {
   return request(`/documents/${documentId}`)
 }
+
+export const createDocument = (
+  parentDocumentId: null | number,
+  title: string,
+): Promise<IDocument> => {
+  return request('/documents', {
+    method: 'POST',
+    body: JSON.stringify({ parent: parentDocumentId, title }),
+  })
+}

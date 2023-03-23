@@ -3,7 +3,7 @@ import { Component } from '@/@modules/core'
 import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
-import { getAllDocument } from '@/apis/document'
+import { createDocument, getAllDocument } from '@/apis/document'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
 
@@ -57,9 +57,17 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     `
   }
 
-  async componentDidMount() {
-    const documents = await getAllDocument()
-    documentStore.dispatch(Actions.getAllDocument(documents))
+  async fetchAllDocument() {
+    try {
+      const documents = await getAllDocument()
+      documentStore.dispatch(Actions.getAllDocument(documents))
+    } catch (error) {
+      window.alert('서버가 불안정하여 문서들을 가져오는데 실패했어요 😭')
+    }
+  }
+
+  componentDidMount() {
+    this.fetchAllDocument()
   }
 
   openModal() {
@@ -91,8 +99,14 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     documentStore.dispatch(Actions.toggleDocument(documentId))
   }
 
-  handleCreateNewDocumentForRoot() {
-    console.log('추가!')
+  async handleCreateNewDocumentForRoot(title: string) {
+    try {
+      const newDocument = await createDocument(null, title)
+      this.fetchAllDocument()
+      navigate(`/document/${newDocument.id}`)
+    } catch (error) {
+      window.alert('서버가 불안정하여 새로운 문서를 생성하는데 실패했어요 😭')
+    }
   }
 
   setChildren(): void {
