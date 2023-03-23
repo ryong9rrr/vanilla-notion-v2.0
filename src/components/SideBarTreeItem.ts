@@ -51,7 +51,7 @@ export default function SideBarTreeItem(props: Props, depth: number = 1): string
           ? `
         <ul>
           ${document.documents
-            .map((doc) => SideBarTreeItem({ document: doc, openDocumentsIds }, depth + 1))
+            .map((doc) => SideBarTreeItem({ ...props, document: doc, openDocumentsIds }, depth + 1))
             .join('')}
         </ul>
       `

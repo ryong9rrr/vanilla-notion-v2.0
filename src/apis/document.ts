@@ -28,3 +28,9 @@ export const createDocument = (
     body: JSON.stringify({ parent: parentDocumentId, title }),
   })
 }
+
+export const removeDocument = (documentId: number): Promise<IDocument> => {
+  return request(`/documents/${documentId}`, {
+    method: 'DELETE',
+  })
+}

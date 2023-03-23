@@ -3,9 +3,27 @@ import { Component } from '@/@modules/core'
 import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
-import { createDocument, getAllDocument } from '@/apis/document'
+import * as DocumentApis from '@/apis/document'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
+
+const isMatch = (pathname: string) => {
+  const regexp = new RegExp(/^\/document\/[\w]+\/?$/, 'g')
+  return regexp.test(pathname)
+}
+
+const isNeedRedirect = (removedDocumentId: number) => {
+  const { pathname } = window.location
+  if (!isMatch(pathname)) {
+    return
+  }
+  const currentDocumentId = parseInt(pathname.replace('/document/', ''), 10)
+  if (Number.isNaN(currentDocumentId)) {
+    return
+  }
+
+  return currentDocumentId === removedDocumentId
+}
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -59,7 +77,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
 
   async fetchAllDocument() {
     try {
-      const documents = await getAllDocument()
+      const documents = await DocumentApis.getAllDocument()
       documentStore.dispatch(Actions.getAllDocument(documents))
     } catch (error) {
       window.alert('서버가 불안정하여 문서들을 가져오는데 실패했어요 😭')
@@ -91,8 +109,20 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     console.log(documentId)
   }
 
-  handleClickDeleteIcon(documentId: number) {
-    console.log(documentId)
+  async handleClickDeleteIcon(documentId: number) {
+    if (!window.confirm('정말 삭제할까요?')) {
+      return
+    }
+
+    try {
+      const removedDocument = await DocumentApis.removeDocument(documentId)
+      await this.fetchAllDocument()
+      if (isNeedRedirect(removedDocument.id)) {
+        navigate('/')
+      }
+    } catch (error) {
+      window.alert('서버가 불안정하여 문서를 삭제하는데 실패했어요 😭')
+    }
   }
 
   handleClickToggleIcon(documentId: number) {
@@ -101,8 +131,8 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
 
   async handleCreateNewDocumentForRoot(title: string) {
     try {
-      const newDocument = await createDocument(null, title)
-      this.fetchAllDocument()
+      const newDocument = await DocumentApis.createDocument(null, title)
+      await this.fetchAllDocument()
       navigate(`/document/${newDocument.id}`)
     } catch (error) {
       window.alert('서버가 불안정하여 새로운 문서를 생성하는데 실패했어요 😭')
