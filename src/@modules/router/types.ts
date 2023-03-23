@@ -6,7 +6,7 @@ export type RouterStaticMethodOptions = {
 }
 
 export type RouteTable = {
-  path: string | RegExp
+  path: string
   viewClass: ClassType<View>
 }[]
 

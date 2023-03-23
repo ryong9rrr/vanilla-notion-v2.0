@@ -3,6 +3,7 @@ import { ClassType, WebApiInterface } from '../core/types'
 import * as CustomErrors from '../core/CustomErrors'
 import { ROUTE_EVENT_TYPE } from './constants'
 import { CustomEvent, RouterStaticMethodOptions, RouteTable } from './types'
+import { isMatch } from './utils'
 
 export const navigate: (path: string, options?: RouterStaticMethodOptions) => void = (
   path,
@@ -64,7 +65,7 @@ class Router {
     this.currentView = view
   }
 
-  addRoute(path: string | RegExp, viewClass: ClassType<View>) {
+  addRoute(path: string, viewClass: ClassType<View>) {
     if (Object.getPrototypeOf(viewClass) !== View) {
       throw new CustomErrors.PrototypeError(
         '두 번째 매개변수는 반드시 View 클래스의 프로토타입이어야 합니다. View 클래스를 상속한 클래스를 첫 번째 매개변수로 사용하세요.',
@@ -85,11 +86,10 @@ class Router {
   route() {
     this.removePrevViewProvider()
 
-    const { pathname } = this.webApiInterface.location
+    const { pathname: realPath } = this.webApiInterface.location
 
     for (const { path, viewClass } of this.routeTable) {
-      const isMatched = typeof path === 'string' ? path === pathname : path.test(pathname)
-      if (isMatched) {
+      if (isMatch(path, realPath)) {
         this.setCurrentView(new viewClass(this.rootId))
         return
       }

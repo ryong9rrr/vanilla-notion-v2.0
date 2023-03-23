@@ -7,7 +7,7 @@ new App('#root', {})
 const router = createRouter(`.${MAIN_PAGE_ROOT_CLASS_SELECTOR}`)
 
 router.addRoute('/', HomePage)
-router.addRoute(/^\/document\/[\w]+\/?$/, MainPage)
+router.addRoute('/document/:documentId', MainPage)
 router.setNotFoundView(NotFoundPage)
 
 router.route()
