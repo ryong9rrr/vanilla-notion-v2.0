@@ -5,6 +5,7 @@ import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getAllDocument } from '@/apis/document'
 import { navigate } from '@/@modules/router'
+import Modal from './Modal'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -18,7 +19,17 @@ const queryDocumentId = (e: Event) => {
   return documentId ? parseInt(documentId, 10) : null
 }
 
-export default class SideBar extends Component {
+export default class SideBar extends Component<{}, { isVisibleModal: boolean }> {
+  componentWillMount() {
+    this.setProvider(documentStore)
+  }
+
+  initState() {
+    return {
+      isVisibleModal: false,
+    }
+  }
+
   template(): string {
     const { documents, openDocumentsIds } = documentStore.getState()
 
@@ -34,24 +45,24 @@ export default class SideBar extends Component {
           ${documents.map((document) => SideBarTreeItem({ document, openDocumentsIds })).join('')}
         </ul>
         <div class="actions">
-          <div class="action">
+          <div class="action add-root-btn">
             <span class="material-icons">
               add
             </span>새로운 페이지
           </div>
         </div>
         <div class="resize-handle"></div>
+        <div id="ModalComponent"></div>
       </nav>
     `
   }
 
-  componentWillMount() {
-    this.setProvider(documentStore)
+  openModal() {
+    this.setState({ isVisibleModal: true })
   }
 
-  async componentDidMount() {
-    const documents = await getAllDocument()
-    documentStore.dispatch(Actions.getAllDocument(documents))
+  closeModal() {
+    this.setState({ isVisibleModal: false })
   }
 
   handleClickUserHeader() {
@@ -63,16 +74,33 @@ export default class SideBar extends Component {
     navigate(`/document/${documentId}`)
   }
 
-  handleAdd(documentId: number) {
+  handleClickAddIcon(documentId: number) {
     console.log(documentId)
   }
 
-  handleDelete(documentId: number) {
+  handleClickDeleteIcon(documentId: number) {
     console.log(documentId)
   }
 
-  handleToggle(documentId: number) {
+  handleClickToggleIcon(documentId: number) {
     documentStore.dispatch(Actions.toggleDocument(documentId))
+  }
+
+  handleCreateNewDocumentForRoot() {
+    console.log('추가!')
+  }
+
+  setChildren(): void {
+    this.addComponent(Modal, '#ModalComponent', {
+      isVisibleModal: this.state.isVisibleModal,
+      onCloseModal: this.closeModal.bind(this),
+      onCreateNewDocument: this.handleCreateNewDocumentForRoot.bind(this),
+    })
+  }
+
+  async componentDidMount() {
+    const documents = await getAllDocument()
+    documentStore.dispatch(Actions.getAllDocument(documents))
   }
 
   setEvent() {
@@ -90,22 +118,26 @@ export default class SideBar extends Component {
     this.addEvent('click', '.add-btn', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
-        this.handleAdd(documentId)
+        this.handleClickAddIcon(documentId)
       }
     })
 
     this.addEvent('click', '.delete-btn', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
-        this.handleDelete(documentId)
+        this.handleClickDeleteIcon(documentId)
       }
     })
 
     this.addEvent('click', '.toggle-btn', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
-        this.handleToggle(documentId)
+        this.handleClickToggleIcon(documentId)
       }
+    })
+
+    this.addEvent('click', '.add-root-btn', (e) => {
+      this.openModal()
     })
   }
 }

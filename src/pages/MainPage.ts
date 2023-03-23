@@ -29,7 +29,7 @@ export default class MainPage extends View<{ occurError: boolean }> {
             ${currentDocument.title}
           </div>
           <div class="content" placeholder="내용을 입력하세요!" contenteditable>
-            ${currentDocument.content}
+            ${currentDocument.content || ''}
           </div>
         </div>
       </section>

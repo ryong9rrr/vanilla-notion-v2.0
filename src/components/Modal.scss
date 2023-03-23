@@ -1,0 +1,49 @@
+.modal-overlay {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-wrapper {
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-contents {
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  border: 0.5px solid gray;
+  border-radius: 0.8em;
+  width: 50%;
+  height: 70vh;
+  background-color: $color-background;
+  overflow: hidden;
+
+  input[name='title'] {
+    width: 100%;
+    height: 7rem;
+    font-size: 3rem;
+    font-weight: 700;
+    border: none;
+    border-bottom: 0.5px solid gray;
+    background-color: $color-background;
+
+    &::placeholder {
+      font-weight: 600;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
