@@ -2,13 +2,14 @@ import { DocumentState, initialState } from './state'
 import { Action } from './actions'
 import * as ActionTypes from './action-types'
 import { findPath } from './helpers'
+import { getOpenDocumentIds, setOpenDocumentIds } from '@/webStorages/openDocumentIdsStorage'
 
 export default function reducer(
   state: DocumentState = initialState,
   action?: Action,
 ): DocumentState {
   if (!action) {
-    return { ...state }
+    return { ...state, openDocumentsIds: new Set(getOpenDocumentIds()) }
   }
 
   switch (action.type) {
@@ -30,6 +31,7 @@ export default function reducer(
       } else {
         openDocumentsIds.add(action.payload)
       }
+      setOpenDocumentIds(Array.from(openDocumentsIds))
       return { ...state, openDocumentsIds }
     }
 

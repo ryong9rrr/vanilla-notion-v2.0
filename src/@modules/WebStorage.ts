@@ -18,7 +18,7 @@ export default class WebStorage<T> {
     this.defaultValue = defaultValue
   }
 
-  get() {
+  get(): T {
     try {
       const value = this.storage.getItem(this.KEY)
       if (!value) {
