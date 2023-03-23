@@ -1,9 +1,9 @@
 import './Header.scss'
 import { Component } from '@/@modules/core'
+import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
-import { navigate } from '@/@modules/router'
 
 const isMatch = (pathname: string) => {
   const regexp = new RegExp(/^\/document\/[\w]+\/?$/, 'g')
@@ -23,6 +23,10 @@ const queryDocumentId = (e: Event) => {
 }
 
 export default class Header extends Component<{}, { occurError: boolean }> {
+  componentWillMount(): void {
+    this.setProvider(documentStore)
+  }
+
   initState() {
     return {
       occurError: false,
@@ -57,21 +61,8 @@ export default class Header extends Component<{}, { occurError: boolean }> {
     `
   }
 
-  componentWillMount(): void {
-    this.setProvider(documentStore)
-  }
-
   componentDidMount() {
     this.fetchPaths()
-  }
-
-  setEvent(): void {
-    this.addEvent('click', '.title', (e) => {
-      const documentId = queryDocumentId(e)
-      if (documentId) {
-        this.navigateDocument(documentId)
-      }
-    })
   }
 
   navigateDocument(documentId: number) {
@@ -93,5 +84,14 @@ export default class Header extends Component<{}, { occurError: boolean }> {
     } catch (error) {
       this.setState({ occurError: true })
     }
+  }
+
+  setEvent(): void {
+    this.addEvent('click', '.title', (e) => {
+      const documentId = queryDocumentId(e)
+      if (documentId) {
+        this.navigateDocument(documentId)
+      }
+    })
   }
 }

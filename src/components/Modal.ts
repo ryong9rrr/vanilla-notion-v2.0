@@ -24,6 +24,13 @@ export default class Modal extends Component<Props> {
     `
   }
 
+  handleClickModalWrapper(title: string) {
+    this.props.onCloseModal()
+    if (title) {
+      this.props.onCreateNewDocument()
+    }
+  }
+
   setEvent(): void {
     this.addEvent('click', '.modal-wrapper', (e) => {
       const $target = e.target as HTMLElement
@@ -34,12 +41,5 @@ export default class Modal extends Component<Props> {
       const title = $input.value
       this.handleClickModalWrapper(title)
     })
-  }
-
-  handleClickModalWrapper(title: string) {
-    this.props.onCloseModal()
-    if (title) {
-      this.props.onCreateNewDocument()
-    }
   }
 }

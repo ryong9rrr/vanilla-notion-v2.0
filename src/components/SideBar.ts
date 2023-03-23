@@ -1,11 +1,11 @@
 import './SideBar.scss'
 import { Component } from '@/@modules/core'
-import SideBarTreeItem from './SideBarTreeItem'
+import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getAllDocument } from '@/apis/document'
-import { navigate } from '@/@modules/router'
 import Modal from './Modal'
+import SideBarTreeItem from './SideBarTreeItem'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -57,6 +57,11 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     `
   }
 
+  async componentDidMount() {
+    const documents = await getAllDocument()
+    documentStore.dispatch(Actions.getAllDocument(documents))
+  }
+
   openModal() {
     this.setState({ isVisibleModal: true })
   }
@@ -96,11 +101,6 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       onCloseModal: this.closeModal.bind(this),
       onCreateNewDocument: this.handleCreateNewDocumentForRoot.bind(this),
     })
-  }
-
-  async componentDidMount() {
-    const documents = await getAllDocument()
-    documentStore.dispatch(Actions.getAllDocument(documents))
   }
 
   setEvent() {
