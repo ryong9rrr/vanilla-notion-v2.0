@@ -4,9 +4,10 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
+import { getDocumentIdForCurrentView } from '@/utils'
+import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/utils/feedbackMessages'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
-import { getDocumentIdForCurrentView } from '@/utils'
 
 const isNeedRedirect = (removedDocumentId: number) => {
   const currentDocumentId = getDocumentIdForCurrentView()
@@ -68,7 +69,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       const documents = await DocumentApis.getAllDocument()
       documentStore.dispatch(Actions.getAllDocument(documents))
     } catch (error) {
-      window.alert('서버가 불안정하여 문서들을 가져오는데 실패했어요 😭')
+      window.alert(USER_FEEDBACK.READ)
     }
   }
 
@@ -102,7 +103,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       await DocumentApis.createDocument(documentId, '')
       await this.fetchAllDocument()
     } catch (error) {
-      window.alert('서버가 불안정하여 문서를 생성하는데 실패했어요 😭')
+      window.alert(USER_FEEDBACK.CREATE)
     }
   }
 
@@ -110,7 +111,6 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     if (!window.confirm('정말 삭제할까요?')) {
       return
     }
-
     try {
       const removedDocument = await DocumentApis.removeDocument(documentId)
       await this.fetchAllDocument()
@@ -118,7 +118,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
         navigate('/')
       }
     } catch (error) {
-      window.alert('서버가 불안정하여 문서를 삭제하는데 실패했어요 😭')
+      window.alert(USER_FEEDBACK.DELETE)
     }
   }
 
@@ -128,7 +128,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       await this.fetchAllDocument()
       navigate(`/document/${newDocument.id}`)
     } catch (error) {
-      window.alert('서버가 불안정하여 새로운 문서를 생성하는데 실패했어요 😭')
+      window.alert(USER_FEEDBACK.CREATE)
     }
   }
 
