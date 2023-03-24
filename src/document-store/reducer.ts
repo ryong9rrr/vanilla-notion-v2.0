@@ -35,6 +35,14 @@ export default function reducer(
       return { ...state, openDocumentsIds }
     }
 
+    case ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT: {
+      const { documents, parentDocumentId } = action.payload
+      const { openDocumentsIds } = state
+      openDocumentsIds.add(parentDocumentId)
+      setOpenDocumentIds(Array.from(openDocumentsIds))
+      return { ...state, allDocument: documents, openDocumentsIds }
+    }
+
     case ActionTypes.VISIT_HOME: {
       return { ...state, currentDocument: null, documentPaths: [] }
     }

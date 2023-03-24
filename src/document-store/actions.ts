@@ -16,17 +16,17 @@ export const toggleDocument = actionCreator<typeof ActionTypes.TOGGLE_DOCUMENT, 
 
 export const visitHome = actionCreator(ActionTypes.VISIT_HOME)
 
-export const addDocumentFromParentDocument = actionCreator<
-  typeof ActionTypes.ADD_DOCUMENT_FROM_PARENT_DOCUMENT,
+export const createDocumentFromParentDocument = actionCreator<
+  typeof ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT,
   {
     documents: IDocument[]
     parentDocumentId: number
   }
->(ActionTypes.ADD_DOCUMENT_FROM_PARENT_DOCUMENT)
+>(ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT)
 
 export type Action =
   | ReturnType<typeof updateAllDocument>
   | ReturnType<typeof updateCurrentDocument>
   | ReturnType<typeof toggleDocument>
   | ReturnType<typeof visitHome>
-  | ReturnType<typeof addDocumentFromParentDocument>
+  | ReturnType<typeof createDocumentFromParentDocument>

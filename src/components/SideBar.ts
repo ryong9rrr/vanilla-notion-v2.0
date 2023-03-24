@@ -99,17 +99,15 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
   async handleClickAddIcon(documentId: number) {
     try {
       await DocumentApis.createDocument(documentId, '')
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(
+        Actions.createDocumentFromParentDocument({
+          documents: fetchedDocuments,
+          parentDocumentId: documentId,
+        }),
+      )
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
-      return
-    }
-
-    try {
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
-    } catch (error) {
-      window.alert(USER_FEEDBACK.READ)
-      return
     }
   }
 
