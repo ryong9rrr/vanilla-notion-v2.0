@@ -7,5 +7,3 @@ export const TOGGLE_DOCUMENT = 'TOGGLE_DOCUMENT' as const
 export const VISIT_HOME = 'VISIT_HOME' as const
 
 export const CREATE_DOCUMENT_FROM_PARENT_DOCUMENT = 'CREATE_DOCUMENT_FROM_PARENT_DOCUMENT' as const
-
-export const DELETE_DOCUMENT = 'DELETE_DOCUMENT' as const

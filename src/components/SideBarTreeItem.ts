@@ -1,9 +1,9 @@
 import './SideBarTreeItem.scss'
 import { IDocument } from '@/types'
-import { getDocumentIdForCurrentView } from '@/utils'
+import { getCurrentDocumentIdFromUrl } from '@/utils'
 
 const isActive = (documentId: number) => {
-  const currentDocumentId = getDocumentIdForCurrentView()
+  const currentDocumentId = getCurrentDocumentIdFromUrl()
   return currentDocumentId && currentDocumentId === documentId
 }
 

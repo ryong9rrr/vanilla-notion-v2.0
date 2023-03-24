@@ -4,7 +4,7 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
-import { getDocumentIdForCurrentView, isDocumentPathForCurrentView } from '@/utils'
+import { getCurrentDocumentIdFromUrl } from '@/utils'
 import { ROUTE_PATH } from '@/constants'
 
 const queryDocumentId = (e: Event) => {
@@ -32,7 +32,7 @@ export default class Header extends Component<{}, { occurError: boolean }> {
 
   template(): string {
     const { documentPaths } = documentStore.getState()
-    if (!isDocumentPathForCurrentView() || this.state.occurError || documentPaths.length === 0) {
+    if (this.state.occurError || documentPaths.length === 0) {
       return ``
     }
 
@@ -65,7 +65,7 @@ export default class Header extends Component<{}, { occurError: boolean }> {
   }
 
   async fetchPaths() {
-    const currentDocumentId = getDocumentIdForCurrentView()
+    const currentDocumentId = getCurrentDocumentIdFromUrl()
     if (!currentDocumentId) {
       return
     }

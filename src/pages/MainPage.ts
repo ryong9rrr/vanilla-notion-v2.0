@@ -3,7 +3,7 @@ import { View } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
-import { getDocumentIdForCurrentView } from '@/utils'
+import { getCurrentDocumentIdFromUrl } from '@/utils'
 
 export default class MainPage extends View<{ occurError: boolean }> {
   initState() {
@@ -42,7 +42,7 @@ export default class MainPage extends View<{ occurError: boolean }> {
   }
 
   async componentDidMount() {
-    const currentDocumentId = getDocumentIdForCurrentView()
+    const currentDocumentId = getCurrentDocumentIdFromUrl()
     if (!currentDocumentId) {
       return
     }
