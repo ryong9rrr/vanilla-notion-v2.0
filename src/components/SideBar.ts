@@ -67,17 +67,13 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     `
   }
 
-  async fetchAllDocument() {
+  async componentDidMount() {
     try {
       const documents = await DocumentApis.getAllDocument()
       documentStore.dispatch(Actions.getAllDocument(documents))
     } catch (error) {
       window.alert(USER_FEEDBACK.READ)
     }
-  }
-
-  componentDidMount() {
-    this.fetchAllDocument()
   }
 
   openModal() {
@@ -104,9 +100,17 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
   async handleClickAddIcon(documentId: number) {
     try {
       await DocumentApis.createDocument(documentId, '')
-      await this.fetchAllDocument()
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
+      return
+    }
+
+    try {
+      const documents = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.getAllDocument(documents))
+    } catch (error) {
+      window.alert(USER_FEEDBACK.READ)
+      return
     }
   }
 
@@ -115,23 +119,46 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       return
     }
     try {
-      const removedDocument = await DocumentApis.removeDocument(documentId)
-      await this.fetchAllDocument()
-      if (isNeedRedirect(removedDocument.id)) {
-        navigate('/')
-      }
+      await DocumentApis.removeDocument(documentId)
     } catch (error) {
       window.alert(USER_FEEDBACK.DELETE)
+      return
+    }
+
+    try {
+      const documents = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.getAllDocument(documents))
+    } catch (error) {
+      window.alert(USER_FEEDBACK.READ)
+      return
+    }
+
+    if (isNeedRedirect(documentId)) {
+      navigate('/')
     }
   }
 
   async handleCreateNewDocumentForRoot(title: string) {
+    let newDocumentId = null
+
     try {
       const newDocument = await DocumentApis.createDocument(null, title)
-      await this.fetchAllDocument()
-      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
+      newDocumentId = newDocument.id
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
+      return
+    }
+
+    try {
+      const documents = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.getAllDocument(documents))
+    } catch (error) {
+      window.alert(USER_FEEDBACK.READ)
+      return
+    }
+
+    if (newDocumentId) {
+      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocumentId}`)
     }
   }
 
