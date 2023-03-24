@@ -2,12 +2,6 @@ import './HomePage.scss'
 import { View } from '@/@modules/core'
 
 export default class HomePage extends View {
-  initState() {
-    return {
-      occurError: false,
-    }
-  }
-
   template(): string {
     return `
       <section>
