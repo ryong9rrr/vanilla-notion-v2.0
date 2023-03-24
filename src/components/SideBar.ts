@@ -5,10 +5,9 @@ import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
 import { getCurrentDocumentIdFromUrl } from '@/utils'
-import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/utils/feedbackMessages'
+import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/constants'
 import { ROUTE_PATH } from '@/routePath'
-import Modal from './Modal'
-import SideBarTreeItem from './SideBarTreeItem'
+import { Modal, SideBarTreeItem } from '.'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {

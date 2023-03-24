@@ -1,4 +1,4 @@
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 
 export type DocumentPath = Pick<IDocument, 'id' | 'title'>
 

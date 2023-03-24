@@ -1,5 +1,5 @@
 import './SideBarTreeItem.scss'
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 import { getCurrentDocumentIdFromUrl } from '@/utils'
 
 const isActive = (documentId: number) => {

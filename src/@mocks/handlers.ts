@@ -1,4 +1,4 @@
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 import { sleep } from './utils'
 import documentsData from './data/documents.json'
 

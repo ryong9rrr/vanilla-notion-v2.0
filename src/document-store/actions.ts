@@ -1,5 +1,5 @@
 import { actionCreator } from '@/@modules/flux'
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 import * as ActionTypes from './action-types'
 
 export const updateAllDocument = actionCreator<typeof ActionTypes.UPDATE_ALL_DOCUMENT, IDocument[]>(

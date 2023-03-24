@@ -1,5 +1,5 @@
 import documentData from '@/@mocks/data/documents.json'
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 import { findPath } from './helpers'
 
 const DOCUMENTS = documentData.data as IDocument[]

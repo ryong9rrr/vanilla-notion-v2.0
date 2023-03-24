@@ -1,5 +1,5 @@
 import { requestBuilder } from '@/@modules/http'
-import { IDocument } from '@/types'
+import { IDocument } from '@/models'
 
 const API_END_POINT = process.env.API_END_POINT as string
 const USER_NAME = process.env.USER_NAME as string
