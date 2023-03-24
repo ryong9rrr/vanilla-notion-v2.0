@@ -1,5 +1,7 @@
 import './HomePage.scss'
 import { View } from '@/@modules/core'
+import { documentStore } from '@/document-store'
+import * as Actions from '@/document-store/actions'
 
 export default class HomePage extends View {
   template(): string {
@@ -10,5 +12,13 @@ export default class HomePage extends View {
         <p>이 프로젝트는 바닐라 타입스크립트로만 구현된 프로젝트에요.</p>
       </section>
     `
+  }
+
+  componentWillMount() {
+    this.setProvider(documentStore)
+  }
+
+  async componentDidMount() {
+    documentStore.dispatch(Actions.navigateHome())
   }
 }

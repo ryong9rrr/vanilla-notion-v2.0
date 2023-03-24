@@ -47,8 +47,8 @@ export default class MainPage extends View<{ occurError: boolean }> {
       return
     }
     try {
-      const document = await getDocument(currentDocumentId)
-      documentStore.dispatch(Actions.getDocument(document))
+      const fetchedDocument = await getDocument(currentDocumentId)
+      documentStore.dispatch(Actions.updateCurrentDocument(fetchedDocument))
     } catch (error) {
       this.setState({ occurError: true })
     }

@@ -13,13 +13,13 @@ export default function reducer(
   }
 
   switch (action.type) {
-    case ActionTypes.GET_ALL_DOCUMENT: {
-      return { ...state, documents: action.payload }
+    case ActionTypes.UPDATE_ALL_DOCUMENT: {
+      return { ...state, allDocument: action.payload }
     }
 
-    case ActionTypes.GET_DOCUMENT: {
+    case ActionTypes.UPDATE_CURRENT_DOCUMENT: {
       const currentDocument = action.payload
-      const documentPaths = findPath(state.documents, currentDocument.id)
+      const documentPaths = findPath(state.allDocument, currentDocument.id)
       return { ...state, currentDocument, documentPaths }
     }
 

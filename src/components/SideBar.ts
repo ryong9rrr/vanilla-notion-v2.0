@@ -41,7 +41,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
   }
 
   template(): string {
-    const { documents, openDocumentsIds } = documentStore.getState()
+    const { allDocument, openDocumentsIds } = documentStore.getState()
 
     return `
       <nav>
@@ -52,7 +52,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
           </div>
         </div>
         <ul>
-          ${documents.map((document) => SideBarTreeItem({ document, openDocumentsIds })).join('')}
+          ${allDocument.map((document) => SideBarTreeItem({ document, openDocumentsIds })).join('')}
         </ul>
         <div class="actions">
           <div class="action add-root-btn">
@@ -69,8 +69,8 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
 
   async componentDidMount() {
     try {
-      const documents = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.getAllDocument(documents))
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.READ)
     }
@@ -86,7 +86,6 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
 
   handleClickUserHeader() {
     navigate(ROUTE_PATH.HOME)
-    documentStore.dispatch(Actions.navigateHome())
   }
 
   handleClickList(documentId: number) {
@@ -106,8 +105,8 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     }
 
     try {
-      const documents = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.getAllDocument(documents))
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.READ)
       return
@@ -126,8 +125,8 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     }
 
     try {
-      const documents = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.getAllDocument(documents))
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.READ)
       return
@@ -150,8 +149,8 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     }
 
     try {
-      const documents = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.getAllDocument(documents))
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.READ)
       return
