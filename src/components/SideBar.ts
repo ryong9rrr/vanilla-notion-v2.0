@@ -118,33 +118,20 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
       window.alert(USER_FEEDBACK.DELETE)
       return
     }
-
     if (documentId === getCurrentDocumentIdFromUrl()) {
-      navigate('/')
+      navigate(ROUTE_PATH.HOME)
     }
   }
 
-  async handleCreateNewDocumentForRoot(title: string) {
-    let newDocumentId = null
-
+  async handleCreateDocumentFromRoot(title: string) {
     try {
       const newDocument = await DocumentApis.createDocument(null, title)
-      newDocumentId = newDocument.id
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
+      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
       return
-    }
-
-    try {
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
-    } catch (error) {
-      window.alert(USER_FEEDBACK.READ)
-      return
-    }
-
-    if (newDocumentId) {
-      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocumentId}`)
     }
   }
 
@@ -152,7 +139,7 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     this.addComponent(Modal, `#${MODAL_COMPONENT_ID_SELECTOR}`, {
       isVisibleModal: this.state.isVisibleModal,
       onCloseModal: this.closeModal.bind(this),
-      onCreateNewDocument: this.handleCreateNewDocumentForRoot.bind(this),
+      onCreateDocument: this.handleCreateDocumentFromRoot.bind(this),
     })
   }
 

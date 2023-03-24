@@ -4,7 +4,7 @@ import { Component } from '@/@modules/core'
 interface Props extends Record<string, any> {
   isVisibleModal: boolean
   onCloseModal: () => void
-  onCreateNewDocument: (title: string) => void
+  onCreateDocument: (title: string) => void
 }
 
 export default class Modal extends Component<Props> {
@@ -25,10 +25,10 @@ export default class Modal extends Component<Props> {
   }
 
   handleClickModalWrapper(title: string) {
-    const { onCloseModal, onCreateNewDocument } = this.props
+    const { onCloseModal, onCreateDocument } = this.props
     onCloseModal()
     if (title) {
-      onCreateNewDocument(title)
+      onCreateDocument(title)
     }
   }
 
