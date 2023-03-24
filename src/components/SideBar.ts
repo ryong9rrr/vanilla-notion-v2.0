@@ -4,16 +4,11 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
-import { getDocumentIdForCurrentView } from '@/utils'
+import { getCurrentDocumentIdFromUrl } from '@/utils'
 import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/utils/feedbackMessages'
 import { ROUTE_PATH } from '@/constants'
 import Modal from './Modal'
 import SideBarTreeItem from './SideBarTreeItem'
-
-const isNeedRedirect = (removedDocumentId: number) => {
-  const currentDocumentId = getDocumentIdForCurrentView()
-  return currentDocumentId && currentDocumentId === removedDocumentId
-}
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -117,20 +112,14 @@ export default class SideBar extends Component<{}, { isVisibleModal: boolean }> 
     }
     try {
       await DocumentApis.removeDocument(documentId)
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.DELETE)
       return
     }
 
-    try {
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
-    } catch (error) {
-      window.alert(USER_FEEDBACK.READ)
-      return
-    }
-
-    if (isNeedRedirect(documentId)) {
+    if (documentId === getCurrentDocumentIdFromUrl()) {
       navigate('/')
     }
   }
