@@ -5,7 +5,7 @@ import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
 import { getCurrentDocumentIdFromUrl } from '@/utils'
-import { ROUTE_PATH } from '@/constants'
+import { ROUTE_PATH } from '@/routePath'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
