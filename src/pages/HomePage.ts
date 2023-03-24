@@ -19,6 +19,6 @@ export default class HomePage extends View {
   }
 
   async componentDidMount() {
-    documentStore.dispatch(Actions.navigateHome())
+    documentStore.dispatch(Actions.visitHome())
   }
 }

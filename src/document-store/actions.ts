@@ -14,7 +14,7 @@ export const toggleDocument = actionCreator<typeof ActionTypes.TOGGLE_DOCUMENT, 
   ActionTypes.TOGGLE_DOCUMENT,
 )
 
-export const navigateHome = actionCreator(ActionTypes.NAVIGATE_HOME)
+export const visitHome = actionCreator(ActionTypes.VISIT_HOME)
 
 export const addDocumentFromParentDocument = actionCreator<
   typeof ActionTypes.ADD_DOCUMENT_FROM_PARENT_DOCUMENT,
@@ -28,5 +28,5 @@ export type Action =
   | ReturnType<typeof updateAllDocument>
   | ReturnType<typeof updateCurrentDocument>
   | ReturnType<typeof toggleDocument>
-  | ReturnType<typeof navigateHome>
+  | ReturnType<typeof visitHome>
   | ReturnType<typeof addDocumentFromParentDocument>
