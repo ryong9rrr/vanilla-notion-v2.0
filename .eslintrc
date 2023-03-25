@@ -12,7 +12,7 @@
   },
   "plugins": ["@typescript-eslint", "eslint-plugin-import"],
   "rules": {
-    "@typescript-eslint/lines-between-class-members": false
+    "@typescript-eslint/lines-between-class-members": 0
   },
   "settings": {
     "import/resolver": {
