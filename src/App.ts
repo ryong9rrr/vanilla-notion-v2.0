@@ -2,7 +2,7 @@ import './App.scss'
 import { Component } from './@modules/core'
 import { Header, SideBar } from './components'
 
-const SIDEBAR_COMPONENT_ID_SELECTOR = 'SideBarComponent'
+export const SIDEBAR_COMPONENT_ID_SELECTOR = 'SideBarComponent'
 const HEADER_COMPONENT_ID_SELECTOR = 'HeaderComponent'
 export const MAIN_PAGE_ROOT_CLASS_SELECTOR = 'page__container'
 

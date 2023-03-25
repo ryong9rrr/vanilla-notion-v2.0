@@ -8,6 +8,8 @@ import { getCurrentDocumentIdFromUrl } from '@/utils'
 import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/constants'
 import { ROUTE_PATH } from '@/routePath'
 import { Modal, SideBarTreeItem } from '.'
+import { resizableColumn } from '@/@modules/resizable'
+import { SIDEBAR_COMPONENT_ID_SELECTOR } from '@/App'
 
 const queryDocumentId = (e: Event) => {
   if (!e.target) {
@@ -22,6 +24,7 @@ const queryDocumentId = (e: Event) => {
 }
 
 const MODAL_COMPONENT_ID_SELECTOR = 'ModalComponent'
+const RESIZE_HANDLE_CLASS_SELECTOR = 'resize-handle'
 
 interface State {
   isVisibleModal: boolean
@@ -59,7 +62,7 @@ export default class SideBar extends Component<{}, State> {
             </span>새로운 페이지
           </div>
         </div>
-        <div class="resize-handle"></div>
+        <div class="${RESIZE_HANDLE_CLASS_SELECTOR}"></div>
         <div id="${MODAL_COMPONENT_ID_SELECTOR}"></div>
       </nav>
     `
@@ -147,7 +150,13 @@ export default class SideBar extends Component<{}, State> {
   }
 
   setEvent() {
-    this.addEvent('click', '.user-header', (e) => {
+    resizableColumn(`#${SIDEBAR_COMPONENT_ID_SELECTOR}`, `.${RESIZE_HANDLE_CLASS_SELECTOR}`, {
+      defaultWidth: 240,
+      minWidth: 160,
+      maxWidth: 500,
+    })
+
+    this.addEvent('click', '.user-header', () => {
       this.handleClickUserHeader()
     })
 
@@ -179,7 +188,7 @@ export default class SideBar extends Component<{}, State> {
       }
     })
 
-    this.addEvent('click', '.add-root-btn', (e) => {
+    this.addEvent('click', '.add-root-btn', () => {
       this.openModal()
     })
   }
