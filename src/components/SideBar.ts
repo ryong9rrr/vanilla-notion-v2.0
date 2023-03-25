@@ -23,7 +23,11 @@ const queryDocumentId = (e: Event) => {
 
 const MODAL_COMPONENT_ID_SELECTOR = 'ModalComponent'
 
-export default class SideBar extends Component<{}, { isVisibleModal: boolean }> {
+interface State {
+  isVisibleModal: boolean
+}
+
+export default class SideBar extends Component<{}, State> {
   componentWillMount() {
     this.setProvider(documentStore)
   }

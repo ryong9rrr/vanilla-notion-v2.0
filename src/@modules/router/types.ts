@@ -1,5 +1,11 @@
-import { View } from '../core'
-import { ClassType, WebApiInterface } from '../core/types'
+import { DOMWindow } from 'jsdom'
+import { Component } from '../core'
+
+export type WebApiInterface = Window | typeof globalThis | DOMWindow
+
+export type ClassType<T, A extends any[] = any[]> = Function & {
+  new (...args: A): T
+}
 
 export type RouterStaticMethodOptions = {
   _webApiInterface: WebApiInterface
@@ -7,7 +13,7 @@ export type RouterStaticMethodOptions = {
 
 export type RouteTable = {
   path: string
-  viewClass: ClassType<View>
+  viewClass: ClassType<Component>
 }[]
 
 export interface CustomEvent<T> extends Event {

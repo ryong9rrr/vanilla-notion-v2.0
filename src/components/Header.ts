@@ -19,7 +19,11 @@ const queryDocumentId = (e: Event) => {
   return documentId ? parseInt(documentId, 10) : null
 }
 
-export default class Header extends Component<{}, { occurError: boolean }> {
+interface State {
+  occurError: boolean
+}
+
+export default class Header extends Component<{}, State> {
   componentWillMount(): void {
     this.setProvider(documentStore)
   }

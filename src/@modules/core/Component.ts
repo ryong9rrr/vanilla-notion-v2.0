@@ -1,18 +1,15 @@
-import * as CustomErrors from './CustomErrors'
 import {
   callComponentDidUpdateOfChildren,
   modifyPropsOfChildren,
   rerenderChildren,
 } from './notifies'
+import * as Errors from './Errors'
 import { ClassType, WebApiInterface } from './types'
 import { isDiff } from './utils'
 
 import { ProviderImpl } from '../interfaces/impls'
 
-abstract class Core<
-  Props extends Record<string, unknown> = {},
-  State extends Record<string, unknown> = {},
-> {
+export default abstract class Component<Props = {}, State = {}> {
   private webApiInterface: WebApiInterface
 
   private provider: ProviderImpl | null = null
@@ -28,7 +25,11 @@ abstract class Core<
 
   _children: Component<any, any>[] = []
 
-  constructor(containerId: string, props: Props, _webApiInterface: WebApiInterface = window) {
+  constructor(
+    containerId: string,
+    props: Props = {} as Props,
+    _webApiInterface: WebApiInterface = window,
+  ) {
     this.webApiInterface = _webApiInterface
 
     this.containerId = containerId
@@ -64,14 +65,14 @@ abstract class Core<
 
   setChildren() {}
 
-  addComponent<T extends Record<string, unknown>>(
+  addComponent<T>(
     ComponentClass: ClassType<Component<T, any>>,
     containerId: string,
-    props: T,
+    props: T = {} as T,
     webApiInterface: WebApiInterface = window,
   ) {
     if (Object.getPrototypeOf(ComponentClass) !== Component) {
-      throw new CustomErrors.PrototypeError(
+      throw new Errors.PrototypeError(
         '첫 번째 매개변수는 반드시 Component 클래스의 프로토타입이어야 합니다. Component 클래스를 상속한 클래스를 첫 번째 매개변수로 사용하세요.',
       )
     }
@@ -116,7 +117,7 @@ abstract class Core<
   get $container() {
     const $el = this.webApiInterface.document.querySelector(this.containerId)
     if (!$el) {
-      throw new CustomErrors.DOMReferenceError(
+      throw new Errors.DOMReferenceError(
         `${this.containerId}에 해당하는 DOMElement를 찾지 못했어요.`,
       )
     }
@@ -172,10 +173,3 @@ abstract class Core<
 
   abstract template(): string
 }
-
-export abstract class Component<
-  Props extends Record<string, unknown> = {},
-  State extends Record<string, unknown> = {},
-> extends Core<Props, State> {}
-
-export abstract class View<State extends Record<string, unknown> = {}> extends Core<{}, State> {}

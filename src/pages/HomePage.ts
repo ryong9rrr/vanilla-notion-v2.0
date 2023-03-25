@@ -1,9 +1,9 @@
 import './HomePage.scss'
-import { View } from '@/@modules/core'
+import { Component } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 
-export default class HomePage extends View {
+export default class HomePage extends Component {
   template(): string {
     return `
       <section>

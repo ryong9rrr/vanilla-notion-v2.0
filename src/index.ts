@@ -8,6 +8,6 @@ router.addRoute(ROUTE_PATH.HOME, HomePage)
 router.addRoute(`${ROUTE_PATH.DOCUMENT_PAGE}/:documentId`, MainPage)
 router.setNotFoundView(NotFoundPage)
 
-new App('#root', {})
+new App('#root')
 
 router.route()

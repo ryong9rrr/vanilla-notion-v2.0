@@ -3,16 +3,12 @@ export const isDiff = <T>(obj: T, nextObj: T) => {
 }
 
 // 성능상 2뎁스까지의 key만 확인한다.
-export function spreadObject<T extends Record<string, any>>(
-  obj: T,
-  depth = 0,
-  result: [string, any][] = [],
-) {
+export function spreadObject<T>(obj: T, depth = 0, result: [string, unknown][] = []) {
   if (depth === 2) {
-    return Object.entries(obj)
+    return Object.entries(obj as Record<string, unknown>)
   }
-  result = result.concat(Object.entries(obj))
-  for (const value of Object.values(obj)) {
+  result = result.concat(Object.entries(obj as Record<string, unknown>))
+  for (const value of Object.values(obj as Record<string, unknown>)) {
     if (
       value &&
       typeof value === 'object' &&

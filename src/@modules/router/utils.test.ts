@@ -12,7 +12,7 @@ const isMatch_TEST_CASE: [string, string, boolean][] = [
   ['/web/document/123/', '/web/document/:id', true],
 ]
 
-describe('라우터 유틸함수 테스트', () => {
+describe('validate 테스트', () => {
   test('isMatch() : 실제 페이지의 pathname과 view에 설정해둔 path를 비교해서 불리언을 반환한다.', () => {
     isMatch_TEST_CASE.forEach(([realPath, configPath, expected]) => {
       expect(isMatch(configPath, realPath)).toBe(expected)

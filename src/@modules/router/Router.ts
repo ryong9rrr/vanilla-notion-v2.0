@@ -1,9 +1,14 @@
-import { View } from '../core'
-import { ClassType, WebApiInterface } from '../core/types'
-import * as CustomErrors from '../core/CustomErrors'
+import { Component } from '../core'
+
+import { ClassType, WebApiInterface } from './types'
 import { ROUTE_EVENT_TYPE } from './constants'
 import { CustomEvent, RouterStaticMethodOptions, RouteTable } from './types'
 import { isMatch } from './utils'
+import { validateArgIsComponent } from './validate'
+
+export const createRouter = (rootId: string, _webApiInterface: WebApiInterface = window) => {
+  return Router.getInstance(rootId, _webApiInterface)
+}
 
 export const navigate: (path: string, options?: RouterStaticMethodOptions) => void = (
   path,
@@ -40,11 +45,11 @@ class Router {
     return this.instance
   }
 
-  private currentView: View | null = null
+  private currentView: Component | null = null
   private rootId: string
   private webApiInterface: WebApiInterface
   private routeTable: RouteTable = []
-  private notFoundViewClass: ClassType<View> | null = null
+  private notFoundViewClass: ClassType<Component> | null = null
 
   private constructor(rootId: string, _webApiInterface: WebApiInterface) {
     this.webApiInterface = _webApiInterface
@@ -61,25 +66,13 @@ class Router {
     })
   }
 
-  private setCurrentView(view: View | null) {
-    this.currentView = view
-  }
-
-  addRoute(path: string, viewClass: ClassType<View>) {
-    if (Object.getPrototypeOf(viewClass) !== View) {
-      throw new CustomErrors.PrototypeError(
-        '두 번째 매개변수는 반드시 View 클래스의 프로토타입이어야 합니다. View 클래스를 상속한 클래스를 첫 번째 매개변수로 사용하세요.',
-      )
-    }
+  addRoute(path: string, viewClass: ClassType<Component>) {
+    validateArgIsComponent(viewClass)
     this.routeTable.push({ path, viewClass })
   }
 
-  setNotFoundView(viewClass: ClassType<View>) {
-    if (Object.getPrototypeOf(viewClass) !== View) {
-      throw new CustomErrors.PrototypeError(
-        '두 번째 매개변수는 반드시 View 클래스의 프로토타입이어야 합니다. View 클래스를 상속한 클래스를 첫 번째 매개변수로 사용하세요.',
-      )
-    }
+  setNotFoundView(viewClass: ClassType<Component>) {
+    validateArgIsComponent(viewClass)
     this.notFoundViewClass = viewClass
   }
 
@@ -104,6 +97,10 @@ class Router {
     this.webApiInterface.document.querySelector(this.rootId)!.innerHTML = ``
   }
 
+  private setCurrentView(view: Component | null) {
+    this.currentView = view
+  }
+
   private removePrevViewProvider() {
     const prevView = this.currentView
     if (!prevView) {
@@ -112,8 +109,4 @@ class Router {
 
     prevView._removeProvider()
   }
-}
-
-export const createRouter = (rootId: string, _webApiInterface: WebApiInterface = window) => {
-  return Router.getInstance(rootId, _webApiInterface)
 }

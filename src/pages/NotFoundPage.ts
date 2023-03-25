@@ -1,7 +1,7 @@
 import './NotFoundPage.scss'
-import { View } from '@/@modules/core'
+import { Component } from '@/@modules/core'
 
-export default class NotFoundPage extends View {
+export default class NotFoundPage extends Component {
   template(): string {
     return `
       <section id="NotFoundPage">

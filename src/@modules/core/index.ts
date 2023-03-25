@@ -1,1 +1,1 @@
-export * from './Core'
+export { default as Component } from './Component'

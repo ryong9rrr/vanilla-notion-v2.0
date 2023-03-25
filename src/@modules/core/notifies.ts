@@ -1,10 +1,7 @@
-import { Component } from './Core'
+import Component from './Component'
 import { isDiff, spreadObject } from './utils'
 
-export const modifyPropsOfChildren = <T extends Record<string, any>>(
-  obj: T,
-  component: Component,
-) => {
+export const modifyPropsOfChildren = <T>(obj: T, component: Component<unknown, unknown>) => {
   const children = component._children
 
   children.forEach((subComponent) => {
@@ -18,7 +15,7 @@ export const modifyPropsOfChildren = <T extends Record<string, any>>(
   })
 }
 
-export const rerenderChildren = (component: Component) => {
+export const rerenderChildren = (component: Component<unknown, unknown>) => {
   const children = component._children
 
   children.forEach((subComponent) => {
@@ -27,7 +24,7 @@ export const rerenderChildren = (component: Component) => {
   })
 }
 
-export const callComponentDidUpdateOfChildren = (component: Component) => {
+export const callComponentDidUpdateOfChildren = (component: Component<unknown, unknown>) => {
   const children = component._children
 
   children.forEach((subComponent) => {

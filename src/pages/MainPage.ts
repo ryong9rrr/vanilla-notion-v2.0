@@ -1,11 +1,15 @@
 import './MainPage.scss'
-import { View } from '@/@modules/core'
+import { Component } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import { getDocument } from '@/apis/document'
 import { getCurrentDocumentIdFromUrl } from '@/utils'
 
-export default class MainPage extends View<{ occurError: boolean }> {
+interface State {
+  occurError: boolean
+}
+
+export default class MainPage extends Component<{}, State> {
   initState() {
     return {
       occurError: false,

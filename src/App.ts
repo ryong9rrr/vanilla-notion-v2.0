@@ -1,12 +1,12 @@
 import './App.scss'
-import { View } from './@modules/core'
+import { Component } from './@modules/core'
 import { Header, SideBar } from './components'
 
 const SIDEBAR_COMPONENT_ID_SELECTOR = 'SideBarComponent'
 const HEADER_COMPONENT_ID_SELECTOR = 'HeaderComponent'
 export const MAIN_PAGE_ROOT_CLASS_SELECTOR = 'page__container'
 
-export default class App extends View {
+export default class App extends Component {
   template(): string {
     return `
       <div class="app__inner">
@@ -24,7 +24,7 @@ export default class App extends View {
   }
 
   setChildren(): void {
-    this.addComponent(SideBar, `#${SIDEBAR_COMPONENT_ID_SELECTOR}`, {})
-    this.addComponent(Header, `#${HEADER_COMPONENT_ID_SELECTOR}`, {})
+    this.addComponent(SideBar, `#${SIDEBAR_COMPONENT_ID_SELECTOR}`)
+    this.addComponent(Header, `#${HEADER_COMPONENT_ID_SELECTOR}`)
   }
 }

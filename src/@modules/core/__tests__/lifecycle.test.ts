@@ -1,5 +1,5 @@
 import jsdom from 'jsdom'
-import { Component } from './Core'
+import Component from '../Component'
 
 const { JSDOM } = jsdom
 const dom = new JSDOM()
