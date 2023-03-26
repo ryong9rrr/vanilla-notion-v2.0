@@ -21,6 +21,10 @@ export function resizableColumn(
   let lastX = defaultWidth
 
   const mouseDownHandler = (e: MouseEvent) => {
+    // attach
+    window.document.addEventListener('mousemove', mouseMoveHandler)
+    window.document.addEventListener('mouseup', mouseUpHandler)
+
     e.preventDefault()
     isResizing = true
     lastX = e.clientX
@@ -29,6 +33,10 @@ export function resizableColumn(
   const mouseUpHandler = () => {
     if (!isResizing) return
     isResizing = false
+
+    // clean-up
+    window.document.removeEventListener('mousemove', mouseMoveHandler)
+    window.document.removeEventListener('mouseup', mouseUpHandler)
   }
 
   const mouseMoveHandler = (e: MouseEvent) => {
@@ -45,6 +53,4 @@ export function resizableColumn(
   }
 
   $(handleSelector).addEventListener('mousedown', mouseDownHandler)
-  window.document.addEventListener('mousemove', mouseMoveHandler)
-  window.document.addEventListener('mouseup', mouseUpHandler)
 }

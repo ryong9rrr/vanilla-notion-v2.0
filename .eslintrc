@@ -12,7 +12,8 @@
   },
   "plugins": ["@typescript-eslint", "eslint-plugin-import"],
   "rules": {
-    "@typescript-eslint/lines-between-class-members": 0
+    "@typescript-eslint/lines-between-class-members": 0,
+    "@typescript-eslint/no-use-before-define": 1
   },
   "settings": {
     "import/resolver": {
