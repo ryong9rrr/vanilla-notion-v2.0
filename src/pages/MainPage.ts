@@ -28,7 +28,7 @@ export default class MainPage extends Component<{}, State> {
     }
 
     return `
-      <section>
+      <section class="main-wrapper">
         <div class="inner">
           <div class="title" placeholder="제목 없음" contenteditable>
             ${currentDocument.title || '제목 없음'}
