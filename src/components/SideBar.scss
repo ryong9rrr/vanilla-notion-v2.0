@@ -4,7 +4,7 @@
 
 nav {
   width: 100%;
-  //flex-shrink: 0; // flex-shrink의 기본값은 1이다. flex 레이아웃 안에서 flex 레이아웃 크기가 줄면 이 부분도 자동적으로 크기가 줄어들게 되는데 0으로 해서 크기가 줄어들지 않도록함.
+  flex-shrink: 0; // flex-shrink의 기본값은 1이다. flex 레이아웃 안에서 flex 레이아웃 크기가 줄면 이 부분도 자동적으로 크기가 줄어들게 되는데 0으로 해서 크기가 줄어들지 않도록함.
   height: 100%;
   background-color: $color-background;
   display: flex;

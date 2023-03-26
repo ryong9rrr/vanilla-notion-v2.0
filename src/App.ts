@@ -10,7 +10,7 @@ export default class App extends Component {
   template(): string {
     return `
       <div class="app__inner">
-        <div id="${SIDEBAR_COMPONENT_ID_SELECTOR}"></div>
+        <div id="${SIDEBAR_COMPONENT_ID_SELECTOR}" style="width: 240px;"></div>
         <div class="app__page">
           <div class="page__header">
             <div id="${HEADER_COMPONENT_ID_SELECTOR}"></div>
