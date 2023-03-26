@@ -151,7 +151,6 @@ export default class SideBar extends Component<{}, State> {
 
   setEvent() {
     resizableColumn(`#${SIDEBAR_COMPONENT_ID_SELECTOR}`, `.${RESIZE_HANDLE_CLASS_SELECTOR}`, {
-      defaultWidth: 240,
       minWidth: 160,
       maxWidth: 500,
     })

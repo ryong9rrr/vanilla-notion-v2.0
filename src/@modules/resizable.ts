@@ -1,5 +1,4 @@
 interface ResizableColumnOptions {
-  defaultWidth: number
   minWidth: number
   maxWidth: number
 }
@@ -15,10 +14,10 @@ const $ = (selector: string) => {
 export function resizableColumn(
   containerSelector: string,
   handleSelector: string,
-  { defaultWidth, minWidth, maxWidth }: ResizableColumnOptions,
+  { minWidth, maxWidth }: ResizableColumnOptions,
 ) {
   let isResizing = false
-  let lastX = defaultWidth
+  let lastX = 0
 
   const mouseDownHandler = (e: MouseEvent) => {
     // attach
