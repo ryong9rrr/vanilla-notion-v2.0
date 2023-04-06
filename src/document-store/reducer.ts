@@ -2,7 +2,7 @@ import { DocumentState, initialState } from './state'
 import { Action } from './actions'
 import * as ActionTypes from './action-types'
 import { findPath } from './helpers'
-import { getOpenDocumentIds, setOpenDocumentIds } from '@/webStorages/openDocumentIdsStorage'
+import { getOpenDocumentIds, setOpenDocumentIds } from '@/web-storages/openDocumentIdsStorage'
 
 export default function reducer(
   state: DocumentState = initialState,
