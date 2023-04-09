@@ -5,7 +5,7 @@ import {
 } from './notifies'
 import * as Errors from './Errors'
 import { ClassType, WebApiInterface } from './types'
-import { isDiff } from './utils'
+import { isDiff } from './helpers'
 
 import { ProviderImpl } from '../interfaces/impls'
 

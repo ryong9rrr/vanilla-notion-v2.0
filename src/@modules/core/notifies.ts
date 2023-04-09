@@ -1,5 +1,5 @@
 import Component from './Component'
-import { isDiff, spreadObject } from './utils'
+import { isDiff, spreadObject } from './helpers'
 
 export const modifyPropsOfChildren = <T>(obj: T, component: Component<unknown, unknown>) => {
   const children = component._children
