@@ -29,8 +29,9 @@ export default class Router {
 
     this.webApiInterface.addEventListener('popstate', this.route.bind(this))
     this.webApiInterface.addEventListener(ROUTE_EVENT_TYPE, (e) => {
+      const prevPath = this.webApiInterface.location.pathname
       const { path } = (e as CustomEvent<{ path: string }>).detail
-      if (path) {
+      if (prevPath !== path) {
         this.webApiInterface.history.pushState(null, '', path)
         this.route()
       }
