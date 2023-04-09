@@ -6,6 +6,7 @@ export const isMatch = (configPath: string, realPath: string) => {
   return parseUrlPath(configPath).test(realPath)
 }
 
+// 사용하지 않는 함수이지만 나중에 hook으로 사용할 수 있다면 좋을듯
 export const getParams = (configPath: string, realPath: string) => {
   const result: Record<string, string> = {}
   const configPaths = configPath.split('/')

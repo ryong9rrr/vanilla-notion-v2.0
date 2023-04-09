@@ -3,7 +3,7 @@ import { Component } from '../core'
 import { ClassType, WebApiInterface } from './types'
 import { ROUTE_EVENT_TYPE } from './event-type'
 import { RouteTable } from './types'
-import { getParams, isMatch } from './helpers'
+import { isMatch } from './helpers'
 import { validateArgIsComponent } from './validate'
 
 export default class Router {
@@ -35,22 +35,6 @@ export default class Router {
         this.route()
       }
     })
-  }
-
-  getParams() {
-    console.log(this.currentView)
-
-    if (!this.currentView) {
-      return {}
-    }
-
-    for (const { path: configPath } of this.routeTable) {
-      if (isMatch(configPath, this.getRealPathname())) {
-        return getParams(configPath, this.getRealPathname())
-      }
-    }
-
-    return {}
   }
 
   addRoute(path: string, viewClass: ClassType<Component>) {
