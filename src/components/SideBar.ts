@@ -4,7 +4,7 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
-import { getCurrentDocumentIdFromUrl } from '@/utils'
+import { extractParamsFromURL } from '@/utils'
 import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/constants'
 import { ROUTE_PATH } from '@/routePath'
 import { Modal, SideBarTreeItem } from '.'
@@ -124,7 +124,7 @@ export default class SideBar extends Component<{}, State> {
       window.alert(USER_FEEDBACK.DELETE)
       return
     }
-    if (documentId === getCurrentDocumentIdFromUrl()) {
+    if (documentId === Number(extractParamsFromURL('/document/'))) {
       navigate(ROUTE_PATH.HOME)
     }
   }
