@@ -20,5 +20,5 @@
       "typescript": {}
     }
   },
-  "ignorePatterns": ["**/*.config.js", "**/*.config.prod.js"]
+  "ignorePatterns": ["**/*.js"]
 }
