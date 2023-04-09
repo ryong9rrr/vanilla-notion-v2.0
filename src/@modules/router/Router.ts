@@ -1,37 +1,12 @@
 import { Component } from '../core'
 
 import { ClassType, WebApiInterface } from './types'
-import { ROUTE_EVENT_TYPE } from './constants'
-import { RouterStaticMethodOptions, RouteTable } from './types'
-import { isMatch } from './utils'
+import { ROUTE_EVENT_TYPE } from './event-type'
+import { RouteTable } from './types'
+import { getParams, isMatch } from './helpers'
 import { validateArgIsComponent } from './validate'
 
-export const navigate: (path: string, options?: RouterStaticMethodOptions) => void = (
-  path,
-  options = {
-    _webApiInterface: window,
-  } as RouterStaticMethodOptions,
-) => {
-  if (options._webApiInterface.location.pathname !== path) {
-    options._webApiInterface.dispatchEvent(
-      new CustomEvent(ROUTE_EVENT_TYPE, {
-        detail: {
-          path,
-        },
-      }),
-    )
-  }
-}
-
-export const goBack: (options?: RouterStaticMethodOptions) => void = (
-  options = {
-    _webApiInterface: window,
-  } as RouterStaticMethodOptions,
-) => {
-  options._webApiInterface.history.back()
-}
-
-class Router {
+export default class Router {
   private static instance: Router
   static getInstance(rootId: string, _webApiInterface: WebApiInterface) {
     if (Router.instance) {
@@ -62,6 +37,22 @@ class Router {
     })
   }
 
+  getParams() {
+    console.log(this.currentView)
+
+    if (!this.currentView) {
+      return {}
+    }
+
+    for (const { path: configPath } of this.routeTable) {
+      if (isMatch(configPath, this.getRealPathname())) {
+        return getParams(configPath, this.getRealPathname())
+      }
+    }
+
+    return {}
+  }
+
   addRoute(path: string, viewClass: ClassType<Component>) {
     validateArgIsComponent(viewClass)
     this.routeTable.push({ path, viewClass })
@@ -73,12 +64,8 @@ class Router {
   }
 
   route() {
-    this.removePrevViewProvider()
-
-    const { pathname: realPath } = this.webApiInterface.location
-
-    for (const { path, viewClass } of this.routeTable) {
-      if (isMatch(path, realPath)) {
+    for (const { path: configPath, viewClass } of this.routeTable) {
+      if (isMatch(configPath, this.getRealPathname())) {
         this.setCurrentView(new viewClass(this.rootId))
         return
       }
@@ -93,20 +80,14 @@ class Router {
     this.webApiInterface.document.querySelector(this.rootId)!.innerHTML = ``
   }
 
-  private setCurrentView(view: Component | null) {
+  private getRealPathname() {
+    return this.webApiInterface.location.pathname
+  }
+
+  private setCurrentView = (view: Component | null) => {
+    if (this.currentView) {
+      this.currentView._removeProvider()
+    }
     this.currentView = view
   }
-
-  private removePrevViewProvider() {
-    const prevView = this.currentView
-    if (!prevView) {
-      return
-    }
-
-    prevView._removeProvider()
-  }
-}
-
-export const createRouter = (rootId: string, _webApiInterface: WebApiInterface = window) => {
-  return Router.getInstance(rootId, _webApiInterface)
 }
