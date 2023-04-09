@@ -2,13 +2,9 @@ import { Component } from '../core'
 
 import { ClassType, WebApiInterface } from './types'
 import { ROUTE_EVENT_TYPE } from './constants'
-import { CustomEvent, RouterStaticMethodOptions, RouteTable } from './types'
+import { RouterStaticMethodOptions, RouteTable } from './types'
 import { isMatch } from './utils'
 import { validateArgIsComponent } from './validate'
-
-export const createRouter = (rootId: string, _webApiInterface: WebApiInterface = window) => {
-  return Router.getInstance(rootId, _webApiInterface)
-}
 
 export const navigate: (path: string, options?: RouterStaticMethodOptions) => void = (
   path,
@@ -109,4 +105,8 @@ class Router {
 
     prevView._removeProvider()
   }
+}
+
+export const createRouter = (rootId: string, _webApiInterface: WebApiInterface = window) => {
+  return Router.getInstance(rootId, _webApiInterface)
 }

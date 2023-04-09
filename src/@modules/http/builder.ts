@@ -26,7 +26,7 @@ export const requestBuilder =
       })
 
       if (response.ok) {
-        return response.json()
+        return await response.json()
       }
       return occurErrors(response.status)
     } catch (error) {

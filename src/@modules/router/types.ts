@@ -16,6 +16,6 @@ export type RouteTable = {
   viewClass: ClassType<Component>
 }[]
 
-export interface CustomEvent<T> extends Event {
+export interface MyCustomEvent<T> extends CustomEvent {
   detail: T
 }
