@@ -6,19 +6,21 @@
 
 ## 🎥 주요 기능 스크린샷
 
-#### 페이지 라우팅 및 렌더링
+#### 모달 : 글 생성
 
-<img src="./docs/view.gif" />
-
-#### 사이드바 : 토글, 문서 생성 및 삭제
-
-<img src="./docs/sidebar.gif" />
+<img src="./docs/modal.gif" />
 
 #### 사이드바 : 리사이징
 
 <img src="./docs/resizing.gif" />
 
-#### 모달 : 글 생성
+#### 사이드바 : 토글, 문서 생성 및 삭제
+
+<img src="./docs/sidebar.gif" />
+
+#### 페이지 라우팅 및 렌더링
+
+<img src="./docs/view.gif" />
 
 ## 🗂️ 주요 모듈 요약
 
