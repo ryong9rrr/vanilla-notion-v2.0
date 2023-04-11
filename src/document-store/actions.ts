@@ -5,10 +5,6 @@ import * as ActionTypes from './action-types'
 export const updateAllDocument = actionCreator<typeof ActionTypes.UPDATE_ALL_DOCUMENT, IDocument[]>(
   ActionTypes.UPDATE_ALL_DOCUMENT,
 )
-export const updateCurrentDocument = actionCreator<
-  typeof ActionTypes.UPDATE_CURRENT_DOCUMENT,
-  IDocument
->(ActionTypes.UPDATE_CURRENT_DOCUMENT)
 
 export const toggleDocument = actionCreator<typeof ActionTypes.TOGGLE_DOCUMENT, number>(
   ActionTypes.TOGGLE_DOCUMENT,
@@ -39,7 +35,6 @@ export const visitMainPage = actionCreator<
 
 export type Action =
   | ReturnType<typeof updateAllDocument>
-  | ReturnType<typeof updateCurrentDocument>
   | ReturnType<typeof toggleDocument>
   | ReturnType<typeof visitHome>
   | ReturnType<typeof createDocumentFromParentDocument>

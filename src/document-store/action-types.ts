@@ -1,7 +1,5 @@
 export const UPDATE_ALL_DOCUMENT = 'UPDATE_ALL_DOCUMENT' as const
 
-export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT' as const
-
 export const TOGGLE_DOCUMENT = 'TOGGLE_DOCUMENT' as const
 
 export const VISIT_HOME = 'VISIT_HOME' as const

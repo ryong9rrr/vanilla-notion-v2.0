@@ -2,9 +2,6 @@ import './Header.scss'
 import { Component } from '@/@modules/core'
 import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
-import * as Actions from '@/document-store/actions'
-import { getDocument } from '@/apis/document'
-import { extractParamsFromURL } from '@/utils'
 import { ROUTE_PATH } from '@/routePath'
 
 const queryDocumentId = (e: Event) => {
@@ -60,25 +57,8 @@ export default class Header extends Component<{}, State> {
     `
   }
 
-  componentDidMount() {
-    this.fetchPaths()
-  }
-
   navigateDocument(documentId: number) {
     navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
-  }
-
-  async fetchPaths() {
-    const documentId = Number(extractParamsFromURL('/document/'))
-    if (Number.isNaN(documentId)) {
-      return
-    }
-    try {
-      const fetchedDocument = await getDocument(documentId)
-      documentStore.dispatch(Actions.updateCurrentDocument(fetchedDocument))
-    } catch (error) {
-      this.setState({ occurError: true })
-    }
   }
 
   setEvent(): void {

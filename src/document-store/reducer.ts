@@ -17,12 +17,6 @@ export default function reducer(
       return { ...state, allDocument: action.payload }
     }
 
-    case ActionTypes.UPDATE_CURRENT_DOCUMENT: {
-      const currentDocument = action.payload
-      const documentPaths = findPath(state.allDocument, currentDocument.id)
-      return { ...state, currentDocument, documentPaths }
-    }
-
     case ActionTypes.VISIT_MAIN_PAGE: {
       const { documents: allDocument, currentDocument } = action.payload
       const documentPaths = findPath(allDocument, currentDocument.id)
