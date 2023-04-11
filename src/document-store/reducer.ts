@@ -13,7 +13,7 @@ export default function reducer(
   }
 
   switch (action.type) {
-    case ActionTypes.UPDATE_ALL_DOCUMENT: {
+    case ActionTypes.FETCH_ALL_DOCUMENT: {
       return { ...state, allDocument: action.payload }
     }
 

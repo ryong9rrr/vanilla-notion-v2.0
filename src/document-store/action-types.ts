@@ -1,4 +1,4 @@
-export const UPDATE_ALL_DOCUMENT = 'UPDATE_ALL_DOCUMENT' as const
+export const FETCH_ALL_DOCUMENT = 'FETCH_ALL_DOCUMENT' as const
 
 export const TOGGLE_DOCUMENT = 'TOGGLE_DOCUMENT' as const
 

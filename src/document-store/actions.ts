@@ -2,8 +2,8 @@ import { actionCreator } from '@/@modules/flux'
 import { IDocument } from '@/models'
 import * as ActionTypes from './action-types'
 
-export const updateAllDocument = actionCreator<typeof ActionTypes.UPDATE_ALL_DOCUMENT, IDocument[]>(
-  ActionTypes.UPDATE_ALL_DOCUMENT,
+export const fetchAllDocument = actionCreator<typeof ActionTypes.FETCH_ALL_DOCUMENT, IDocument[]>(
+  ActionTypes.FETCH_ALL_DOCUMENT,
 )
 
 export const toggleDocument = actionCreator<typeof ActionTypes.TOGGLE_DOCUMENT, number>(
@@ -34,7 +34,7 @@ export const visitMainPage = actionCreator<
 >(ActionTypes.VISIT_MAIN_PAGE)
 
 export type Action =
-  | ReturnType<typeof updateAllDocument>
+  | ReturnType<typeof fetchAllDocument>
   | ReturnType<typeof toggleDocument>
   | ReturnType<typeof visitHome>
   | ReturnType<typeof createDocumentFromParentDocument>

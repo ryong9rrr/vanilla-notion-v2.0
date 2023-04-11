@@ -68,15 +68,6 @@ export default class SideBar extends Component<{}, State> {
     `
   }
 
-  async componentDidMount() {
-    try {
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
-    } catch (error) {
-      window.alert(USER_FEEDBACK.READ)
-    }
-  }
-
   openModal() {
     this.setState({ isVisibleModal: true })
   }
@@ -129,8 +120,8 @@ export default class SideBar extends Component<{}, State> {
     }
 
     try {
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
+      const documents = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.fetchAllDocument(documents))
     } catch (e) {
       window.alert(USER_FEEDBACK.READ)
     }
