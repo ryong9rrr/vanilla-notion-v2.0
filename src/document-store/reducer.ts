@@ -23,7 +23,7 @@ export default function reducer(
       return { ...state, allDocument, currentDocument, documentPaths }
     }
 
-    case ActionTypes.TOGGLE_DOCUMENT: {
+    case ActionTypes.TOGGLE_SIDEBAR: {
       const { openDocumentsIds } = state
       const documentId = action.payload
       if (openDocumentsIds.has(documentId)) {

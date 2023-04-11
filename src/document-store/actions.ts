@@ -6,8 +6,8 @@ export const fetchAllDocument = actionCreator<typeof ActionTypes.FETCH_ALL_DOCUM
   ActionTypes.FETCH_ALL_DOCUMENT,
 )
 
-export const toggleDocument = actionCreator<typeof ActionTypes.TOGGLE_DOCUMENT, number>(
-  ActionTypes.TOGGLE_DOCUMENT,
+export const toggleSidebar = actionCreator<typeof ActionTypes.TOGGLE_SIDEBAR, number>(
+  ActionTypes.TOGGLE_SIDEBAR,
 )
 
 export const visitHome = actionCreator<
@@ -35,7 +35,7 @@ export const visitMainPage = actionCreator<
 
 export type Action =
   | ReturnType<typeof fetchAllDocument>
-  | ReturnType<typeof toggleDocument>
+  | ReturnType<typeof toggleSidebar>
   | ReturnType<typeof visitHome>
   | ReturnType<typeof createDocumentFromParentDocument>
   | ReturnType<typeof visitMainPage>

@@ -85,7 +85,7 @@ export default class SideBar extends Component<{}, State> {
   }
 
   handleClickToggleIcon(documentId: number) {
-    documentStore.dispatch(Actions.toggleDocument(documentId))
+    documentStore.dispatch(Actions.toggleSidebar(documentId))
   }
 
   async handleClickAddIcon(documentId: number) {
