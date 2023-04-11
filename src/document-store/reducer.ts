@@ -35,7 +35,7 @@ export default function reducer(
       return { ...state, openDocumentsIds }
     }
 
-    case ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT: {
+    case ActionTypes.CREATE_DOCUMENT: {
       const { documents, parentDocumentId } = action.payload
       const { openDocumentsIds } = state
       openDocumentsIds.add(parentDocumentId)

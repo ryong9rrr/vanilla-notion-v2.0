@@ -17,13 +17,13 @@ export const visitHome = actionCreator<
   }
 >(ActionTypes.VISIT_HOME)
 
-export const createDocumentFromParentDocument = actionCreator<
-  typeof ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT,
+export const createDocument = actionCreator<
+  typeof ActionTypes.CREATE_DOCUMENT,
   {
     documents: IDocument[]
     parentDocumentId: number
   }
->(ActionTypes.CREATE_DOCUMENT_FROM_PARENT_DOCUMENT)
+>(ActionTypes.CREATE_DOCUMENT)
 
 export const visitMainPage = actionCreator<
   typeof ActionTypes.VISIT_MAIN_PAGE,
@@ -37,5 +37,5 @@ export type Action =
   | ReturnType<typeof fetchAllDocument>
   | ReturnType<typeof toggleSidebar>
   | ReturnType<typeof visitHome>
-  | ReturnType<typeof createDocumentFromParentDocument>
+  | ReturnType<typeof createDocument>
   | ReturnType<typeof visitMainPage>

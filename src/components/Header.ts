@@ -4,18 +4,6 @@ import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import { ROUTE_PATH } from '@/routePath'
 
-const queryDocumentId = (e: Event) => {
-  if (!e.target) {
-    return null
-  }
-  const $button = e.target as HTMLButtonElement
-  if (!$button) {
-    return null
-  }
-  const documentId = $button.dataset.id
-  return documentId ? parseInt(documentId, 10) : null
-}
-
 interface State {
   occurError: boolean
 }
@@ -57,7 +45,7 @@ export default class Header extends Component<{}, State> {
     `
   }
 
-  navigateDocument(documentId: number) {
+  handleClickDocumentPathTitle(documentId: number) {
     navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
   }
 
@@ -65,8 +53,20 @@ export default class Header extends Component<{}, State> {
     this.addEvent('click', '.title', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
-        this.navigateDocument(documentId)
+        this.handleClickDocumentPathTitle(documentId)
       }
     })
   }
+}
+
+const queryDocumentId = (e: Event) => {
+  if (!e.target) {
+    return null
+  }
+  const $button = e.target as HTMLButtonElement
+  if (!$button) {
+    return null
+  }
+  const documentId = $button.dataset.id
+  return documentId ? parseInt(documentId, 10) : null
 }

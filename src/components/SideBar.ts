@@ -5,23 +5,10 @@ import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
 import { extractParamsFromURL } from '@/utils'
-import { DOCUMENT_FETCH_FAIL_FEEDBACK as USER_FEEDBACK } from '@/constants'
 import { ROUTE_PATH } from '@/routePath'
 import { Modal, SideBarTreeItem } from '.'
 import { resizableColumn } from '@/@modules/resizable'
 import { SIDEBAR_COMPONENT_ID_SELECTOR } from '@/App'
-
-const queryDocumentId = (e: Event) => {
-  if (!e.target) {
-    return null
-  }
-  const $li = (e.target as HTMLElement).closest('li')
-  if (!$li) {
-    return null
-  }
-  const documentId = $li.dataset.id
-  return documentId ? parseInt(documentId, 10) : null
-}
 
 const MODAL_COMPONENT_ID_SELECTOR = 'ModalComponent'
 const RESIZE_HANDLE_CLASS_SELECTOR = 'resize-handle'
@@ -91,15 +78,21 @@ export default class SideBar extends Component<{}, State> {
   async handleClickAddIcon(documentId: number) {
     try {
       await DocumentApis.createDocument(documentId, '')
+    } catch (error) {
+      window.alert('문서를 생성하지 못했어요. 다시 시도해주세요.')
+      return
+    }
+
+    try {
       const fetchedDocuments = await DocumentApis.getAllDocument()
       documentStore.dispatch(
-        Actions.createDocumentFromParentDocument({
+        Actions.createDocument({
           documents: fetchedDocuments,
           parentDocumentId: documentId,
         }),
       )
-    } catch (error) {
-      window.alert(USER_FEEDBACK.CREATE)
+    } catch (e) {
+      window.location.reload()
     }
   }
 
@@ -110,7 +103,7 @@ export default class SideBar extends Component<{}, State> {
     try {
       await DocumentApis.removeDocument(documentId)
     } catch (error) {
-      window.alert(USER_FEEDBACK.DELETE)
+      window.alert('문서를 삭제하는데 실패했어요. 다시 시도해주세요.')
       return
     }
 
@@ -123,7 +116,7 @@ export default class SideBar extends Component<{}, State> {
       const documents = await DocumentApis.getAllDocument()
       documentStore.dispatch(Actions.fetchAllDocument(documents))
     } catch (e) {
-      window.alert(USER_FEEDBACK.READ)
+      window.location.reload()
     }
   }
 
@@ -132,7 +125,7 @@ export default class SideBar extends Component<{}, State> {
       const newDocument = await DocumentApis.createDocument(null, title)
       navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
     } catch (error) {
-      window.alert(USER_FEEDBACK.CREATE)
+      window.alert('문서를 생성하는데 실패했어요. 다시 시도해주세요.')
       return
     }
   }
@@ -187,4 +180,16 @@ export default class SideBar extends Component<{}, State> {
       this.openModal()
     })
   }
+}
+
+const queryDocumentId = (e: Event) => {
+  if (!e.target) {
+    return null
+  }
+  const $li = (e.target as HTMLElement).closest('li')
+  if (!$li) {
+    return null
+  }
+  const documentId = $li.dataset.id
+  return documentId ? parseInt(documentId, 10) : null
 }
