@@ -9,6 +9,7 @@ import { ROUTE_PATH } from '@/routePath'
 import { Modal, SideBarTreeItem } from '.'
 import { resizableColumn } from '@/@modules/resizable'
 import { SIDEBAR_COMPONENT_ID_SELECTOR } from '@/App'
+import { isGuard } from '@/etc'
 
 const MODAL_COMPONENT_ID_SELECTOR = 'ModalComponent'
 const RESIZE_HANDLE_CLASS_SELECTOR = 'resize-handle'
@@ -165,6 +166,10 @@ export default class SideBar extends Component<{}, State> {
     this.addEvent('click', '.delete-btn', (e) => {
       const documentId = queryDocumentId(e)
       if (documentId) {
+        if (isGuard(documentId)) {
+          window.alert('이 문서는 삭제하지 말아주세요 ☺️')
+          return
+        }
         this.handleClickDeleteIcon(documentId)
       }
     })
