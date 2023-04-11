@@ -23,6 +23,12 @@ export default function reducer(
       return { ...state, currentDocument, documentPaths }
     }
 
+    case ActionTypes.VISIT_MAIN_PAGE: {
+      const { documents: allDocument, currentDocument } = action.payload
+      const documentPaths = findPath(allDocument, currentDocument.id)
+      return { ...state, allDocument, currentDocument, documentPaths }
+    }
+
     case ActionTypes.TOGGLE_DOCUMENT: {
       const { openDocumentsIds } = state
       const documentId = action.payload
@@ -44,7 +50,8 @@ export default function reducer(
     }
 
     case ActionTypes.VISIT_HOME: {
-      return { ...state, currentDocument: null, documentPaths: [] }
+      const { documents: allDocument } = action.payload
+      return { ...state, currentDocument: null, documentPaths: [], allDocument }
     }
 
     default:

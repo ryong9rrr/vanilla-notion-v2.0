@@ -1,6 +1,7 @@
 import './HomePage.scss'
 import { Component } from '@/@modules/core'
 import { documentStore } from '@/document-store'
+import * as DocumentApis from '@/apis/document'
 import * as Actions from '@/document-store/actions'
 
 export default class HomePage extends Component {
@@ -28,6 +29,7 @@ export default class HomePage extends Component {
   }
 
   async componentDidMount() {
-    documentStore.dispatch(Actions.visitHome())
+    const documents = await DocumentApis.getAllDocument()
+    documentStore.dispatch(Actions.visitHome({ documents }))
   }
 }

@@ -118,22 +118,27 @@ export default class SideBar extends Component<{}, State> {
     }
     try {
       await DocumentApis.removeDocument(documentId)
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
     } catch (error) {
       window.alert(USER_FEEDBACK.DELETE)
       return
     }
+
     if (documentId === Number(extractParamsFromURL('/document/'))) {
       navigate(ROUTE_PATH.HOME)
+      return
+    }
+
+    try {
+      const fetchedDocuments = await DocumentApis.getAllDocument()
+      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
+    } catch (e) {
+      window.alert(USER_FEEDBACK.READ)
     }
   }
 
   async handleCreateDocumentFromRoot(title: string) {
     try {
       const newDocument = await DocumentApis.createDocument(null, title)
-      const fetchedDocuments = await DocumentApis.getAllDocument()
-      documentStore.dispatch(Actions.updateAllDocument(fetchedDocuments))
       navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
     } catch (error) {
       window.alert(USER_FEEDBACK.CREATE)
