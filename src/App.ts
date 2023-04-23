@@ -1,12 +1,13 @@
+import { ui } from 'sangyoon-ui'
+
 import './App.scss'
-import { Component } from './@modules/core'
 import { Header, SideBar } from './components'
 
 export const SIDEBAR_COMPONENT_ID_SELECTOR = 'SideBarComponent'
 const HEADER_COMPONENT_ID_SELECTOR = 'HeaderComponent'
 export const MAIN_PAGE_ROOT_CLASS_SELECTOR = 'page__container'
 
-export default class App extends Component {
+export default class App extends ui.Component {
   template(): string {
     return `
       <div class="app__inner">

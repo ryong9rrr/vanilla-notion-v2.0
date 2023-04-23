@@ -1,7 +1,8 @@
-import './NotFoundPage.scss'
-import { Component } from '@/@modules/core'
+import { ui } from 'sangyoon-ui'
 
-export default class NotFoundPage extends Component {
+import './NotFoundPage.scss'
+
+export default class NotFoundPage extends ui.Component {
   template(): string {
     return `
       <section id="NotFoundPage">

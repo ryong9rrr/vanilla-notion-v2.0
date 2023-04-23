@@ -1,6 +1,6 @@
+import { ui, router } from 'sangyoon-ui'
+
 import './Header.scss'
-import { Component } from '@/@modules/core'
-import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import { ROUTE_PATH } from '@/routePath'
 
@@ -8,7 +8,7 @@ interface State {
   occurError: boolean
 }
 
-export default class Header extends Component<{}, State> {
+export default class Header extends ui.Component<{}, State> {
   componentWillMount(): void {
     this.setProvider(documentStore)
   }
@@ -46,7 +46,7 @@ export default class Header extends Component<{}, State> {
   }
 
   handleClickDocumentPathTitle(documentId: number) {
-    navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
+    router.navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
   }
 
   setEvent(): void {

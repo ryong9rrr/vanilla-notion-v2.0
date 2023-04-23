@@ -1,23 +1,25 @@
-import { actionCreator } from '@/@modules/flux'
+import { flux } from 'sangyoon-ui'
+
 import { IDocument } from '@/models'
 import * as ActionTypes from './action-types'
 
-export const fetchAllDocument = actionCreator<typeof ActionTypes.FETCH_ALL_DOCUMENT, IDocument[]>(
-  ActionTypes.FETCH_ALL_DOCUMENT,
-)
+export const fetchAllDocument = flux.actionCreator<
+  typeof ActionTypes.FETCH_ALL_DOCUMENT,
+  IDocument[]
+>(ActionTypes.FETCH_ALL_DOCUMENT)
 
-export const toggleSidebar = actionCreator<typeof ActionTypes.TOGGLE_SIDEBAR, number>(
+export const toggleSidebar = flux.actionCreator<typeof ActionTypes.TOGGLE_SIDEBAR, number>(
   ActionTypes.TOGGLE_SIDEBAR,
 )
 
-export const visitHome = actionCreator<
+export const visitHome = flux.actionCreator<
   typeof ActionTypes.VISIT_HOME,
   {
     documents: IDocument[]
   }
 >(ActionTypes.VISIT_HOME)
 
-export const createDocument = actionCreator<
+export const createDocument = flux.actionCreator<
   typeof ActionTypes.CREATE_DOCUMENT,
   {
     documents: IDocument[]
@@ -25,7 +27,7 @@ export const createDocument = actionCreator<
   }
 >(ActionTypes.CREATE_DOCUMENT)
 
-export const visitMainPage = actionCreator<
+export const visitMainPage = flux.actionCreator<
   typeof ActionTypes.VISIT_MAIN_PAGE,
   {
     documents: IDocument[]

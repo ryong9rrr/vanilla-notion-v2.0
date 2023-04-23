@@ -1,5 +1,6 @@
+import { ui } from 'sangyoon-ui'
+
 import './MainPage.scss'
-import { Component } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
@@ -9,7 +10,7 @@ interface State {
   occurError: boolean
 }
 
-export default class MainPage extends Component<{}, State> {
+export default class MainPage extends ui.Component<{}, State> {
   initState() {
     return {
       occurError: false,

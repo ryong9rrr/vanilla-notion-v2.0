@@ -1,6 +1,6 @@
+import { ui, router } from 'sangyoon-ui'
+
 import './SideBar.scss'
-import { Component } from '@/@modules/core'
-import { navigate } from '@/@modules/router'
 import { documentStore } from '@/document-store'
 import * as Actions from '@/document-store/actions'
 import * as DocumentApis from '@/apis/document'
@@ -18,7 +18,7 @@ interface State {
   isVisibleModal: boolean
 }
 
-export default class SideBar extends Component<{}, State> {
+export default class SideBar extends ui.Component<{}, State> {
   componentWillMount() {
     this.setProvider(documentStore)
   }
@@ -65,11 +65,11 @@ export default class SideBar extends Component<{}, State> {
   }
 
   handleClickUserHeader() {
-    navigate(ROUTE_PATH.HOME)
+    router.navigate(ROUTE_PATH.HOME)
   }
 
   handleClickList(documentId: number) {
-    navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
+    router.navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${documentId}`)
   }
 
   handleClickToggleIcon(documentId: number) {
@@ -109,7 +109,7 @@ export default class SideBar extends Component<{}, State> {
     }
 
     if (documentId === Number(extractParamsFromURL('/document/'))) {
-      navigate(ROUTE_PATH.HOME)
+      router.navigate(ROUTE_PATH.HOME)
       return
     }
 
@@ -124,7 +124,7 @@ export default class SideBar extends Component<{}, State> {
   async handleCreateDocumentFromRoot(title: string) {
     try {
       const newDocument = await DocumentApis.createDocument(null, title)
-      navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
+      router.navigate(`${ROUTE_PATH.DOCUMENT_PAGE}/${newDocument.id}`)
     } catch (error) {
       window.alert('문서를 생성하는데 실패했어요. 다시 시도해주세요.')
       return

@@ -1,5 +1,6 @@
+import { ui } from 'sangyoon-ui'
+
 import './Modal.scss'
-import { Component } from '@/@modules/core'
 
 interface Props extends Record<string, any> {
   isVisibleModal: boolean
@@ -7,7 +8,7 @@ interface Props extends Record<string, any> {
   onCreateDocument: (title: string) => void
 }
 
-export default class Modal extends Component<Props> {
+export default class Modal extends ui.Component<Props> {
   template(): string {
     if (!this.props.isVisibleModal) {
       return ``

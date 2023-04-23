@@ -1,10 +1,11 @@
+import { ui } from 'sangyoon-ui'
+
 import './HomePage.scss'
-import { Component } from '@/@modules/core'
 import { documentStore } from '@/document-store'
 import * as DocumentApis from '@/apis/document'
 import * as Actions from '@/document-store/actions'
 
-export default class HomePage extends Component {
+export default class HomePage extends ui.Component {
   template(): string {
     return `
       <section class="home-wrapper">
