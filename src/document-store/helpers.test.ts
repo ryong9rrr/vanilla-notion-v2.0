@@ -1,4 +1,4 @@
-import documentData from '@/@mocks/data/documents.json'
+import documentData from '@/mocks/data/documents.json'
 import { IDocument } from '@/models'
 import { findPath } from './helpers'
 
