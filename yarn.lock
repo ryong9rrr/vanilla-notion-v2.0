@@ -6174,10 +6174,10 @@ safe-regex-test@^1.0.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sangyoon-ui@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/sangyoon-ui/-/sangyoon-ui-1.0.3.tgz#44b580508e15c592928d2103bc513b406528ad43"
-  integrity sha512-FaZ/gGTI7Gsx7nDOMbGFGtlCzrv9/5Edt+V9MaZj4E2Vl121OlxncTlANYHlBUhIIRKBsXz5nFlnNEl0i3NOpg==
+sangyoon-ui@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/sangyoon-ui/-/sangyoon-ui-1.1.8.tgz#bc8ef69222c133f395a46aeb198caf1a44d1407b"
+  integrity sha512-no+rh6mYXtjSrRu5aPjVm8d4e5Bazgy2AjHmOVYW0vklTnfU5CLWvpGPY9QhkLDy8RcHMQD0d8TdYfjlaV1pSQ==
 
 sass-graph@^4.0.1:
   version "4.0.1"
