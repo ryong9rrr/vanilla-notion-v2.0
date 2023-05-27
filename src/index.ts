@@ -2,7 +2,7 @@ import { router } from 'sangyoon-ui'
 
 import App, { MAIN_PAGE_ROOT_CLASS_SELECTOR } from './App'
 import { HomePage, MainPage, NotFoundPage } from './pages'
-import { ROUTE_PATH } from './routePath'
+import { ROUTE_PATH } from './pages/routes'
 
 const appRouter = router.createRouter(`.${MAIN_PAGE_ROOT_CLASS_SELECTOR}`)
 

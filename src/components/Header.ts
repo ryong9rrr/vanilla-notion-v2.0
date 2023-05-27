@@ -2,7 +2,7 @@ import { ui, router } from 'sangyoon-ui'
 
 import './Header.scss'
 import { documentStore } from '@/document-store'
-import { ROUTE_PATH } from '@/routePath'
+import { ROUTE_PATH } from '@/pages/routes'
 
 interface State {
   occurError: boolean
