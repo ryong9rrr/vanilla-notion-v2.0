@@ -1,4 +1,4 @@
-import WebStorage from '@/@modules/WebStorage'
+import WebStorage from '@/_lib/WebStorage'
 
 const openDocumentIdsStorage = new WebStorage<number[]>('openDocumentIds', [], 'local')
 

@@ -1,4 +1,4 @@
-import { requestBuilder } from '@/@modules/http'
+import { requestBuilder } from '@/_lib/http'
 import { IDocument } from '@/models'
 
 const API_END_POINT = process.env.API_END_POINT as string

@@ -7,7 +7,7 @@ import * as DocumentApis from '@/apis/document'
 import { extractParamsFromURL } from '@/utils'
 import { ROUTE_PATH } from '@/pages/routes'
 import { Modal, SideBarTreeItem } from '.'
-import { resizableColumn } from '@/@modules/resizable'
+import { resizableColumn } from '@/_lib/resizable'
 import { SIDEBAR_COMPONENT_ID_SELECTOR } from '@/App'
 import { isGuard } from '@/etc'
 
