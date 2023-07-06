@@ -1,6 +1,6 @@
 import { flux } from 'sangyoon-ui'
 
-import { IDocument } from '@/models'
+import { IDocument } from '@/models/document'
 import * as ActionTypes from './action-types'
 
 export const fetchAllDocument = flux.actionCreator<

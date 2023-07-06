@@ -1,4 +1,4 @@
-import { IDocument } from '@/models'
+import { IDocument } from '@/models/document'
 import { DocumentPath } from './state'
 
 const makePath = (document: IDocument) =>
